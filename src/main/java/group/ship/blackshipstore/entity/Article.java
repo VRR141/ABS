@@ -11,7 +11,7 @@ public class Article {
     private ItemsValuesArticlesKey id;
 
     @Column(name = "price")
-    private long price;
+    private int price;
 
     @Column(name = "amount")
     private int amount;
@@ -34,7 +34,7 @@ public class Article {
         return price;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

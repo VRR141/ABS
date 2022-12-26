@@ -20,7 +20,7 @@ public class Value {
     List<Article> articleList;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "value_id",referencedColumnName = "id")
+    @JoinColumn(name = "attribute_id",referencedColumnName = "id")
     private Attribute attribute;
 
     public Value() {
