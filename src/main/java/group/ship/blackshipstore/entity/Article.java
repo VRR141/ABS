@@ -26,8 +26,31 @@ public class Article {
     @JoinColumn(name = "value_id")
     private Value value;
 
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public Value getValue() {
+        return value;
+    }
+
+    public void setValue(Value value) {
+        this.value = value;
+    }
 
     public Article() {
+    }
+
+    public Article(ItemsValuesArticlesKey id, int price, int amount, Item item, Value value) {
+        this.id = id;
+        this.price = price;
+        this.amount = amount;
+        this.item = item;
+        this.value = value;
     }
 
     public long getPrice() {

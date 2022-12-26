@@ -18,7 +18,7 @@ public class ItemController {
         this.itemService = itemService;
     }
     @GetMapping()
-    public List<Item> getPeople() {
+    public List<Item> getItems() {
         return itemService.findAll();
     }
 
