@@ -1,9 +1,8 @@
 package group.ship.blackshipstore.sevices;
 
 import group.ship.blackshipstore.entity.Article;
-import group.ship.blackshipstore.entity.Item;
+import group.ship.blackshipstore.entity.ItemValues;
 import group.ship.blackshipstore.repositories.ArticlesRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

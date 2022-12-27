@@ -22,7 +22,7 @@ public class Item {
     private Category category;
 
     @OneToMany(mappedBy = "item")
-    List<Article> articleList;
+    private List<ItemValues> itemValuesList;
 
     public Item() {
     }
