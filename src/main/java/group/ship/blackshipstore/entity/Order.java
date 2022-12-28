@@ -17,6 +17,8 @@ public class Order {
     @ManyToOne(targetEntity = Status.class, fetch = FetchType.LAZY)
     private Status status;
 
+    //private Article article;
+
     private LocalDateTime orderDate;
 
     private LocalDateTime completedDate;
