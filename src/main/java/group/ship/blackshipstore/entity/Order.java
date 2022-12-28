@@ -20,8 +20,15 @@ public class Order {
     @Column(name = "completed_date")
     private Date complitedDate;
 
+    @ManyToOne(targetEntity = Pirate.class, fetch = FetchType.LAZY)
+    private Pirate pirate;
+
+    @ManyToOne(targetEntity = Status.class, fetch = FetchType.LAZY)
+    private Status status;
+
     public Order() {
     }
+
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "order")
     private List<ArticleOrder> articleOrderList;
 
@@ -41,5 +48,35 @@ public class Order {
         this.complitedDate = complitedDate;
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Pirate getPirate() {
+        return pirate;
+    }
+
+    public void setPirate(Pirate pirate) {
+        this.pirate = pirate;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public List<ArticleOrder> getArticleOrderList() {
+        return articleOrderList;
+    }
+
+    public void setArticleOrderList(List<ArticleOrder> articleOrderList) {
+        this.articleOrderList = articleOrderList;
+    }
 }
