@@ -2,10 +2,7 @@ package group.ship.blackshipstore.controller;
 
 import group.ship.blackshipstore.entity.Order;
 import group.ship.blackshipstore.sevices.OrderService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
@@ -18,14 +15,22 @@ public class OrderController {
         this.orderService = orderService;
     }
     @GetMapping("/{id}")
-    public List<Order> findAllByPirateId(@PathVariable Integer id) {
-        return orderService.findAllByPirateId(id);
+    public List<Order> getAllOrdersByPirateId(@PathVariable Integer id) {
+        return orderService.getAllOrdersByPirateId(id);
     }
 
     @GetMapping("unique/{id}")
-    public Order findDistinctTopByPirateId(@PathVariable Integer id) {
-        return orderService.findDistinctTopByPirateId(id);
+    public Order getLastOrderByPirateId(@PathVariable Integer id) {
+        return orderService.getLastOrderByPirateId(id);
     }
 
+    @PutMapping("/{id}")
+    public Order markOrderAsCompleted(@PathVariable Integer id) {
+        return orderService.markOrderAsCompleted(id);
+    }
 
+    @PostMapping("/{id}")
+    public void addOrder(@PathVariable Integer id) {
+        orderService.addOrderByPirateId(id);
+    }
 }

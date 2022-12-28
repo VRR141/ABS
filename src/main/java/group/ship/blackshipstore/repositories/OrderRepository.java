@@ -12,5 +12,4 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     public List<Order> findAllByPirateId(Integer id);
 
     public Order findDistinctTopByPirateId(Integer id);
-
 }

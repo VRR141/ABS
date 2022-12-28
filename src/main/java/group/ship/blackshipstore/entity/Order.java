@@ -44,7 +44,7 @@ public class Order {
         return complitedDate;
     }
 
-    public void setComplitedDate(Date complitedDate) {
+    public void setCompletedDate(Date complitedDate) {
         this.complitedDate = complitedDate;
     }
 
