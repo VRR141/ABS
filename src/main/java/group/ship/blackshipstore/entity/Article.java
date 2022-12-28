@@ -30,6 +30,9 @@ public class Article {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "article")
     private List<ItemValues> itemValuesList;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "article")
+    private List<ArticleOrder> articleOrderList;
+
     public Article() {
     }
 
