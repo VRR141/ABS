@@ -1,9 +1,8 @@
 package group.ship.blackshipstore.controller;
 
 import group.ship.blackshipstore.entity.Article;
-import group.ship.blackshipstore.entity.Item;
+import group.ship.blackshipstore.entity.ItemValues;
 import group.ship.blackshipstore.sevices.ArticlesService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
