@@ -17,7 +17,7 @@ public class Value {
     private String valueName;
 
     @OneToMany(mappedBy = "value")
-    List<Article> articleList;
+    List<ItemValues> itemValuesList;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "attribute_id",referencedColumnName = "id")

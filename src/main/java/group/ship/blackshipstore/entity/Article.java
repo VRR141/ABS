@@ -2,13 +2,16 @@ package group.ship.blackshipstore.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "articles")
 public class Article {
 
-    @EmbeddedId
+    @Id
     @Column(name = "id")
-    private ItemsValuesArticlesKey id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @Column(name = "price")
     private int price;
@@ -16,44 +19,32 @@ public class Article {
     @Column(name = "amount")
     private int amount;
 
-    @ManyToOne
-    @MapsId("itemsId")
-    @JoinColumn(name = "item_id")
-    private Item item;
-
-    @ManyToOne
-    @MapsId("valueId")
-    @JoinColumn(name = "value_id")
-    private Value value;
-
-    public Item getItem() {
-        return item;
+    public List<ItemValues> getItemValuesList() {
+        return itemValuesList;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
+    public void setItemValuesList(List<ItemValues> itemValuesList) {
+        this.itemValuesList = itemValuesList;
     }
 
-    public Value getValue() {
-        return value;
-    }
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "article")
+    private List<ItemValues> itemValuesList;
 
-    public void setValue(Value value) {
-        this.value = value;
-    }
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "article")
+    private List<ArticleOrder> articleOrderList;
 
     public Article() {
     }
 
-    public Article(ItemsValuesArticlesKey id, int price, int amount, Item item, Value value) {
-        this.id = id;
-        this.price = price;
-        this.amount = amount;
-        this.item = item;
-        this.value = value;
+    public int getId() {
+        return id;
     }
 
-    public long getPrice() {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getPrice() {
         return price;
     }
 

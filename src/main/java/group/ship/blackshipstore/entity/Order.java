@@ -2,25 +2,42 @@ package group.ship.blackshipstore.entity;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 @Entity
+@Table(name = "orders")
 public class Order {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
-    @ManyToOne(targetEntity = Pirate.class, fetch = FetchType.LAZY)
-    private Pirate pirate;
+    @Column(name = "order_date")
+    private Date orderDate;
 
-    @ManyToOne(targetEntity = Status.class, fetch = FetchType.LAZY)
-    private Status status;
+    @Column(name = "completed_date")
+    private Date complitedDate;
 
-    //private Article article;
+    public Order() {
+    }
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "order")
+    private List<ArticleOrder> articleOrderList;
 
-    private LocalDateTime orderDate;
+    public Date getOrderDate() {
+        return orderDate;
+    }
 
-    private LocalDateTime completedDate;
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
+    }
 
+    public Date getComplitedDate() {
+        return complitedDate;
+    }
+
+    public void setComplitedDate(Date complitedDate) {
+        this.complitedDate = complitedDate;
+    }
 }
