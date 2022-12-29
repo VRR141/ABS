@@ -30,7 +30,7 @@ public class OrderController {
     }
 
     @PostMapping("/{id}")
-    public void addOrder(@PathVariable Integer id) {
+    public void addOrder(@PathVariable("id") Integer id) {
         orderService.addOrderByPirateId(id);
     }
 }
