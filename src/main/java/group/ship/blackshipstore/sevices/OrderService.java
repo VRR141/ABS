@@ -2,30 +2,46 @@ package group.ship.blackshipstore.sevices;
 
 import group.ship.blackshipstore.entity.Order;
 import group.ship.blackshipstore.repositories.OrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import group.ship.blackshipstore.repositories.PirateRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 public class OrderService {
+
     private final OrderRepository orderRepository;
+    private PirateRepository pirateRepository;
 
     public OrderService(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
     }
-    public List<Order> findAll() {
-        return orderRepository.findAll();
+
+    public List<Order> getAllOrdersByPirateId(Integer id) {
+        return orderRepository.findAllByPirateId(id);
     }
 
-    public Order findOne(int id) {
+    public Order getLastOrderByPirateId(Integer id) {
+        return orderRepository.findDistinctTopByPirateId(id);
+    }
+
+    public Order markOrderAsCompleted(Integer id) {
+        Date currentDate = new Date();
         Optional<Order> order = orderRepository.findById(id);
+        order.ifPresent((order1) -> {
+                order1.setCompletedDate(currentDate);
+                orderRepository.save(order1);
+        });
         return order.orElse(null);
     }
-
-
+    public void addOrderByPirateId(Integer id) {
+        Order order = new Order();
+        order.setPirate(pirateRepository.getReferenceById(id));
+        orderRepository.save(new Order());
+    }
 
 }
