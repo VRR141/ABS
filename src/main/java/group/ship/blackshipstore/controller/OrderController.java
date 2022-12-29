@@ -29,8 +29,8 @@ public class OrderController {
         return orderService.markOrderAsCompleted(id);
     }
 
-    @PostMapping("/{id}")
-    public void addOrder(@PathVariable("id") Integer id) {
-        orderService.addOrderByPirateId(id);
+    @PostMapping("/add")
+    public void addOrder(@RequestBody Order order) {
+        orderService.addOrderByPirate(order);
     }
 }

@@ -1,8 +1,10 @@
 package group.ship.blackshipstore.sevices;
 
 import group.ship.blackshipstore.entity.Order;
+import group.ship.blackshipstore.entity.Pirate;
 import group.ship.blackshipstore.repositories.OrderRepository;
 import group.ship.blackshipstore.repositories.PirateRepository;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,10 +40,8 @@ public class OrderService {
         });
         return order.orElse(null);
     }
-    public void addOrderByPirateId(Integer id) {
-        Order order = new Order();
-        order.setPirate(pirateRepository.getReferenceById(id));
-        orderRepository.save(new Order());
+    public void addOrderByPirate(Order order) {
+        orderRepository.save(order);
     }
 
 }
