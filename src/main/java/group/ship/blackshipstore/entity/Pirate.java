@@ -25,7 +25,7 @@ public class Pirate {
     private Credential credential;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "piretes_roles",
+    @JoinTable(name = "pirates_roles",
             joinColumns = @JoinColumn(name = "pirate_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;

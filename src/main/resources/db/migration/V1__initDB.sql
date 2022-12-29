@@ -105,7 +105,7 @@ CREATE TABLE articles_orders(
                                 order_id int REFERENCES orders(id),
                                 amount int
 );
--- insert into orders values (1,'2022-12-26', '2022-12-27');
--- insert into orders values (2,'01-01-2023', null);
+-- insert into orders values (1,'2022-12-26', '2022-12-27',1,1);
+-- insert into orders values (2,'2022-11-25','2022-12-29',2,2);
 -- insert into articles_orders values (1,1, 1, 1);
 -- insert into articles_orders values (2,2,2,1)

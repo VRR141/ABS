@@ -19,7 +19,7 @@ public class OrderController {
         return orderService.getAllOrdersByPirateId(id);
     }
 
-    @GetMapping("unique/{id}")
+    @GetMapping("/unique/{id}")
     public Order getLastOrderByPirateId(@PathVariable Integer id) {
         return orderService.getLastOrderByPirateId(id);
     }
