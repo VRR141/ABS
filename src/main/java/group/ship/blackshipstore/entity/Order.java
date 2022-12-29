@@ -20,10 +20,10 @@ public class Order {
     @Column(name = "completed_date")
     private Date complitedDate;
 
-    @ManyToOne(targetEntity = Pirate.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Pirate.class)
     private Pirate pirate;
 
-    @ManyToOne(targetEntity = Status.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Status.class)
     private Status status;
 
     public Order() {
@@ -72,11 +72,11 @@ public class Order {
         this.status = status;
     }
 
-    public List<ArticleOrder> getArticleOrderList() {
-        return articleOrderList;
-    }
-
-    public void setArticleOrderList(List<ArticleOrder> articleOrderList) {
-        this.articleOrderList = articleOrderList;
-    }
+//    public List<ArticleOrder> getArticleOrderList() {
+//        return articleOrderList;
+//    }
+//
+//    public void setArticleOrderList(List<ArticleOrder> articleOrderList) {
+//        this.articleOrderList = articleOrderList;
+//    }
 }

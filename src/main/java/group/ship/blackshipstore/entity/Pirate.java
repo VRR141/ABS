@@ -16,7 +16,7 @@ public class Pirate {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "pirate_id")
     private List<Order> orders;
 

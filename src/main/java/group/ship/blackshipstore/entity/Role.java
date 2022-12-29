@@ -38,11 +38,11 @@ public class Role {
         this.name = name;
     }
 
-    public List<Pirate> getPirates() {
-        return pirates;
-    }
-
-    public void setPirates(List<Pirate> pirates) {
-        this.pirates = pirates;
-    }
+//    public List<Pirate> getPirates() {
+//        return pirates;
+//    }
+//
+//    public void setPirates(List<Pirate> pirates) {
+//        this.pirates = pirates;
+//    }
 }
