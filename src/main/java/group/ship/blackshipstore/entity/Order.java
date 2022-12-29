@@ -72,11 +72,5 @@ public class Order {
         this.status = status;
     }
 
-//    public List<ArticleOrder> getArticleOrderList() {
-//        return articleOrderList;
-//    }
-//
-//    public void setArticleOrderList(List<ArticleOrder> articleOrderList) {
-//        this.articleOrderList = articleOrderList;
-//    }
+
 }
