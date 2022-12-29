@@ -20,9 +20,9 @@ public class Pirate {
     @JoinColumn(name = "pirate_id")
     private List<Order> orders;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pirate_id")
-    private Credential credential;
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "credential_id")
+//    private Credential credential;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "pirates_roles",
@@ -46,27 +46,27 @@ public class Pirate {
         this.name = name;
     }
 
-    public List<Order> getOrders() {
-        return orders;
-    }
+//    public List<Order> getOrders() {
+//        return orders;
+//    }
+//
+//    public void setOrders(List<Order> orders) {
+//        this.orders = orders;
+//    }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
+//    public Credential getCredential() {
+//        return credential;
+//    }
+//
+//    public void setCredential(Credential credential) {
+//        this.credential = credential;
+//    }
 
-    public Credential getCredential() {
-        return credential;
-    }
-
-    public void setCredential(Credential credential) {
-        this.credential = credential;
-    }
-
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
+//    public List<Role> getRoles() {
+//        return roles;
+//    }
+//
+//    public void setRoles(List<Role> roles) {
+//        this.roles = roles;
+//    }
 }
