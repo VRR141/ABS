@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +33,9 @@ public class OrderService {
     }
 
     public Order getLastOrderByPirateId(Long id) {
-        return orderRepository.findDistinctTopByPirateId(id);
+        List<Order> orders = orderRepository.findAllByPirateId(id);
+        orders.sort(Comparator.comparing(Order::getOrderDate));
+        return orders.get(orders.size() - 1);
     }
 
     public Order markOrderAsCompleted(Long id) {
