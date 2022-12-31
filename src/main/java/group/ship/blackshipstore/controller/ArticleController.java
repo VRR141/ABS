@@ -29,7 +29,7 @@ public class ArticleController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Get Article by id", description = "Return Article by id")
-    public Article getArticle(@PathVariable("id") int id) {
+    public Article getArticle(@PathVariable("id") Long id) {
         return articlesService.findOne(id);
     }
 }

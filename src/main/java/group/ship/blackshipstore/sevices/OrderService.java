@@ -1,10 +1,7 @@
 package group.ship.blackshipstore.sevices;
 
 import group.ship.blackshipstore.entity.Order;
-import group.ship.blackshipstore.entity.Pirate;
 import group.ship.blackshipstore.repositories.OrderRepository;
-import group.ship.blackshipstore.repositories.PirateRepository;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +14,6 @@ import java.util.Optional;
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    private PirateRepository pirateRepository;
 
     public OrderService(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
@@ -31,7 +27,7 @@ public class OrderService {
         return orderRepository.findDistinctTopByPirateId(id);
     }
 
-    public Order markOrderAsCompleted(Integer id) {
+    public Order markOrderAsCompleted(Long id) {
         Date currentDate = new Date();
         Optional<Order> order = orderRepository.findById(id);
         order.ifPresent((order1) -> {

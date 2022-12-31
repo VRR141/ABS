@@ -5,8 +5,11 @@ import group.ship.blackshipstore.entity.ArticleOrder;
 import group.ship.blackshipstore.sevices.ArticlesOrdersService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -28,7 +31,7 @@ public class ArticlesOrdersController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Get Article and what Order it is from", description = "Return pare Article-Order")
-    public ArticleOrder getArticlesOrders(@PathVariable("id") int id) {
+    public ArticleOrder getArticlesOrders(@PathVariable("id") Long id) {
         return articlesOrdersService.findOne(id);
     }
 

@@ -1,7 +1,6 @@
 package group.ship.blackshipstore.sevices;
 
 import group.ship.blackshipstore.entity.Article;
-import group.ship.blackshipstore.entity.ItemValues;
 import group.ship.blackshipstore.repositories.ArticlesRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +20,7 @@ public class ArticlesService {
         return articlesRepository.findAll();
     }
 
-    public Article findOne(int id){
+    public Article findOne(Long id){
         Optional<Article> article = articlesRepository.findById(id);
         return article.orElse(null);
     }

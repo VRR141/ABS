@@ -2,7 +2,6 @@ package group.ship.blackshipstore.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -10,34 +9,34 @@ import java.util.Objects;
 public class ItemsValuesArticlesKey implements Serializable {
 
     @Column(name = "item_id")
-    private int itemsId;
+    private Long itemsId;
 
     @Column(name = "value_id")
-    private int valuesId;
+    private Long valuesId;
 
 
     public ItemsValuesArticlesKey() {
     }
 
-    public ItemsValuesArticlesKey(int itemsId, int valuesId) {
+    public ItemsValuesArticlesKey(Long itemsId, Long valuesId) {
         this.itemsId = itemsId;
         this.valuesId = valuesId;
 
     }
 
-    public int getItemsId() {
+    public Long getItemsId() {
         return itemsId;
     }
 
-    public void setItemsId(int itemsId) {
+    public void setItemsId(Long itemsId) {
         this.itemsId = itemsId;
     }
 
-    public int getValuesId() {
+    public Long getValuesId() {
         return valuesId;
     }
 
-    public void setValuesId(int valuesId) {
+    public void setValuesId(Long valuesId) {
         this.valuesId = valuesId;
     }
 
