@@ -1,5 +1,12 @@
-Stack:
+**Stack**:
 * Spring boot
 * Data JPA
 * REST
-* WEB
+* SWAGGER
+* FlyWay
+* PostgreSQL
+
+
+**DataBase schema:** 
+
+![](dbschema.jpg)
