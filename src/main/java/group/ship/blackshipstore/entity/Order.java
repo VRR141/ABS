@@ -2,23 +2,18 @@ package group.ship.blackshipstore.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Table(name = "orders")
-public class Order {
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class Order extends BaseEntity {
 
     @Column(name = "order_date")
-    private Date orderDate;
+    private LocalDate orderDate;
 
     @Column(name = "completed_date")
-    private Date complitedDate;
+    private LocalDate completedDate;
 
     @ManyToOne(targetEntity = Pirate.class)
     private Pirate pirate;
@@ -29,31 +24,23 @@ public class Order {
     public Order() {
     }
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "order")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private List<ArticleOrder> articleOrderList;
 
-    public Date getOrderDate() {
+    public LocalDate getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
 
-    public Date getComplitedDate() {
-        return complitedDate;
+    public LocalDate getCompletedDate() {
+        return completedDate;
     }
 
-    public void setCompletedDate(Date complitedDate) {
-        this.complitedDate = complitedDate;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setCompletedDate(LocalDate completedDate) {
+        this.completedDate = completedDate;
     }
 
     public Pirate getPirate() {
@@ -72,5 +59,11 @@ public class Order {
         this.status = status;
     }
 
+    public List<ArticleOrder> getArticleOrderList() {
+        return articleOrderList;
+    }
 
+    public void setArticleOrderList(List<ArticleOrder> articleOrderList) {
+        this.articleOrderList = articleOrderList;
+    }
 }

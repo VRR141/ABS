@@ -1,8 +1,8 @@
 package group.ship.blackshipstore.dto;
 
-public class ItemResponceDTO {
+public class ItemResponseDTO {
     private String itemName;
-    public ItemResponceDTO(String itemName) {
+    public ItemResponseDTO(String itemName) {
         this.itemName = itemName;
     }
 

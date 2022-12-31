@@ -19,19 +19,19 @@ public class OrderController {
     }
     @GetMapping("/{id}")
     @Operation(summary = "Get all Pirate Orders", description = "Return list of all Orders by Pirate id")
-    public List<Order> getAllOrdersByPirateId(@PathVariable Integer id) {
+    public List<Order> getAllOrdersByPirateId(@PathVariable Long id) {
         return orderService.getAllOrdersByPirateId(id);
     }
 
     @GetMapping("/unique/{id}")
     @Operation(summary = "Get last Pirate Order", description = "Return last Order by Pirate id")
-    public Order getLastOrderByPirateId(@PathVariable Integer id) {
+    public Order getLastOrderByPirateId(@PathVariable Long id) {
         return orderService.getLastOrderByPirateId(id);
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Mark Order completed", description = "Return Order that has been marked as completed by id")
-    public Order markOrderAsCompleted(@PathVariable Integer id) {
+    public Order markOrderAsCompleted(@PathVariable Long id) {
         return orderService.markOrderAsCompleted(id);
     }
 
