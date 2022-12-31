@@ -7,12 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "orders")
-public class Order {
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class Order extends BaseEntity {
 
     @Column(name = "order_date")
     private Date orderDate;
@@ -29,7 +24,7 @@ public class Order {
     public Order() {
     }
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "order")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private List<ArticleOrder> articleOrderList;
 
     public Date getOrderDate() {
@@ -48,14 +43,6 @@ public class Order {
         this.complitedDate = complitedDate;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public Pirate getPirate() {
         return pirate;
     }
@@ -71,6 +58,5 @@ public class Order {
     public void setStatus(Status status) {
         this.status = status;
     }
-
 
 }
