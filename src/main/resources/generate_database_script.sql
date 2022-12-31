@@ -1,5 +1,5 @@
 -- Script for init database and create account for authentication
--- Use it once
+-- Use it once!!!
 
 CREATE DATABASE black_ship;
 
