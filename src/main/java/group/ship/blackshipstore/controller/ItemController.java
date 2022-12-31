@@ -1,6 +1,6 @@
 package group.ship.blackshipstore.controller;
 
-import group.ship.blackshipstore.entity.Item;
+import group.ship.blackshipstore.dto.ItemResponceDTO;
 import group.ship.blackshipstore.sevices.ItemService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,7 +22,7 @@ public class ItemController {
 
     @GetMapping()
     @Operation(summary = "Get all Items", description = "Return list of all Items")
-    public List<Item> getItems() {
+    public List<ItemResponceDTO> getItems() {
         return itemService.findAll();
     }
 
