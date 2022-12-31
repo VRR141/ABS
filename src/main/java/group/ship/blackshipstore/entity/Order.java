@@ -2,7 +2,7 @@ package group.ship.blackshipstore.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -10,10 +10,10 @@ import java.util.List;
 public class Order extends BaseEntity {
 
     @Column(name = "order_date")
-    private Date orderDate;
+    private LocalDate orderDate;
 
     @Column(name = "completed_date")
-    private Date complitedDate;
+    private LocalDate completedDate;
 
     @ManyToOne(targetEntity = Pirate.class)
     private Pirate pirate;
@@ -27,20 +27,20 @@ public class Order extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private List<ArticleOrder> articleOrderList;
 
-    public Date getOrderDate() {
+    public LocalDate getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
 
-    public Date getComplitedDate() {
-        return complitedDate;
+    public LocalDate getCompletedDate() {
+        return completedDate;
     }
 
-    public void setCompletedDate(Date complitedDate) {
-        this.complitedDate = complitedDate;
+    public void setCompletedDate(LocalDate completedDate) {
+        this.completedDate = completedDate;
     }
 
     public Pirate getPirate() {
@@ -59,4 +59,11 @@ public class Order extends BaseEntity {
         this.status = status;
     }
 
+    public List<ArticleOrder> getArticleOrderList() {
+        return articleOrderList;
+    }
+
+    public void setArticleOrderList(List<ArticleOrder> articleOrderList) {
+        this.articleOrderList = articleOrderList;
+    }
 }

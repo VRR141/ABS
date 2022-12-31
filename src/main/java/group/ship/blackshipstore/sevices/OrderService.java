@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,7 +36,7 @@ public class OrderService {
     }
 
     public Order markOrderAsCompleted(Long id) {
-        Date currentDate = new Date();
+        LocalDate currentDate = LocalDate.now();
         Optional<Order> order = orderRepository.findById(id);
         order.ifPresent((order1) -> {
             order1.setCompletedDate(currentDate);
