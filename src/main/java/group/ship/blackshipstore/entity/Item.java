@@ -11,6 +11,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.List;
+import java.util.Objects;
+import org.hibernate.Hibernate;
 
 @Entity
 @Table(name = "items")
@@ -47,5 +49,23 @@ public class Item {
         return getClass().getSimpleName() + "(" +
                 "id = " + id + ", " +
                 "itemName = " + itemName + ")";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(
+                o)) {
+            return false;
+        }
+        Item item = (Item) o;
+        return id != null && Objects.equals(id, item.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

@@ -8,6 +8,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.util.List;
+import java.util.Objects;
+import org.hibernate.Hibernate;
 
 @Entity
 public class Attribute {
@@ -38,5 +40,23 @@ public class Attribute {
         return getClass().getSimpleName() + "(" +
                 "id = " + id + ", " +
                 "attributeName = " + attributeName + ")";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(
+                o)) {
+            return false;
+        }
+        Attribute attribute = (Attribute) o;
+        return id != null && Objects.equals(id, attribute.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

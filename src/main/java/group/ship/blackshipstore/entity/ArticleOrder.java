@@ -9,6 +9,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.util.Objects;
+import org.hibernate.Hibernate;
 
 @Entity
 @Table(name = "articles_orders")
@@ -71,5 +73,23 @@ public class ArticleOrder {
         return getClass().getSimpleName() + "(" +
                 "id = " + id + ", " +
                 "amount = " + amount + ")";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(
+                o)) {
+            return false;
+        }
+        ArticleOrder that = (ArticleOrder) o;
+        return id != null && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }
