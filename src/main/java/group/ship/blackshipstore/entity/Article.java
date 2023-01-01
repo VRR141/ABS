@@ -65,4 +65,12 @@ public class Article {
     public void setAmount(int amount) {
         this.amount = amount;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "price = " + price + ", " +
+                "amount = " + amount + ")";
+    }
 }

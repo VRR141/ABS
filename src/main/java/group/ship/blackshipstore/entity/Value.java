@@ -42,4 +42,11 @@ public class Value {
     public void setValueName(String valueName) {
         this.valueName = valueName;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "valueName = " + valueName + ")";
+    }
 }

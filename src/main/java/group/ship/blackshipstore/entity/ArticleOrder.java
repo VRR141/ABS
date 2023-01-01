@@ -65,4 +65,11 @@ public class ArticleOrder {
     public void setOrder(Order order) {
         this.order = order;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "amount = " + amount + ")";
+    }
 }

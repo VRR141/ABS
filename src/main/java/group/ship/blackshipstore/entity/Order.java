@@ -79,5 +79,11 @@ public class Order {
         this.status = status;
     }
 
-
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "orderDate = " + orderDate + ", " +
+                "complitedDate = " + complitedDate + ")";
+    }
 }

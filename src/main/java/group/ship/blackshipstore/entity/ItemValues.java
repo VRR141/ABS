@@ -50,4 +50,10 @@ public class ItemValues {
     public void setValue(Value value) {
         this.value = value;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "EmbeddedId = " + id + ")";
+    }
 }

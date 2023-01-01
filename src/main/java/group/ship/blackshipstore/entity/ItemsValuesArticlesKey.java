@@ -53,4 +53,11 @@ public class ItemsValuesArticlesKey implements Serializable {
     public int hashCode() {
         return Objects.hash(itemsId, valuesId);
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "itemsId = " + itemsId + ", " +
+                "valuesId = " + valuesId + ")";
+    }
 }

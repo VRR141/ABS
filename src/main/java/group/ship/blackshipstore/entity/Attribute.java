@@ -32,4 +32,11 @@ public class Attribute {
     public void setAttributeName(String attributeName) {
         this.attributeName = attributeName;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "attributeName = " + attributeName + ")";
+    }
 }
