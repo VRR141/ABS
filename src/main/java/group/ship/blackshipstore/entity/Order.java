@@ -74,17 +74,22 @@ public class Order extends BaseEntity {
     public List<ArticleOrder> getArticleOrderList() {
         return articleOrderList;
     }
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "(" +
-                "id = " + id + ", " +
-                "orderDate = " + orderDate + ", " +
-                "complitedDate = " + complitedDate + ")";
-    }
+
 
     public void setArticleOrderList(List<ArticleOrder> articleOrderList) {
         this.articleOrderList = articleOrderList;
     }
+
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "id = " + getId() + ", " +
+                "idForComparing = " + getIdForComparing() + ", " +
+                "orderDate = " + getOrderDate() + ", " +
+                "completedDate = " + getCompletedDate() + ")";
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -95,7 +100,7 @@ public class Order extends BaseEntity {
             return false;
         }
         Order order = (Order) o;
-        return id != null && Objects.equals(id, order.id);
+        return getId() != null && Objects.equals(getId(), order.getId());
     }
 
     @Override

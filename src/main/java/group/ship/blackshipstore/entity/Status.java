@@ -39,12 +39,6 @@ public class Status extends BaseEntity{
     public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "(" +
-                "id = " + id + ", " +
-                "name = " + name + ")";
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -56,11 +50,19 @@ public class Status extends BaseEntity{
             return false;
         }
         Status status = (Status) o;
-        return id != null && Objects.equals(id, status.id);
+        return getId() != null && Objects.equals(getId(), status.getId());
     }
 
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "id = " + getId() + ", " +
+                "idForComparing = " + getIdForComparing() + ", " +
+                "name = " + getName() + ")";
     }
 }
