@@ -25,13 +25,13 @@ public class OrderController {
     }
     @GetMapping("/{id}")
     @Operation(summary = "Get all Pirate Orders", description = "Return list of all Orders by Pirate id")
-    public List<Order> getAllOrdersByPirateId(@PathVariable Integer id) {
+    public List<Order> getAllOrdersByPirateId(@PathVariable Long id) {
         return orderService.getAllOrdersByPirateId(id);
     }
 
     @GetMapping("/unique/{id}")
     @Operation(summary = "Get last Pirate Order", description = "Return last Order by Pirate id")
-    public Order getLastOrderByPirateId(@PathVariable Integer id) {
+    public Order getLastOrderByPirateId(@PathVariable Long id) {
         return orderService.getLastOrderByPirateId(id);
     }
 

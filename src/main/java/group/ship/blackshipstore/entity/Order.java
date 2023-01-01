@@ -10,24 +10,22 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.Date;
+import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import org.hibernate.Hibernate;
 
 @Entity
 @Table(name = "orders")
-public class Order {
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Order extends BaseEntity {
 
     @Column(name = "order_date")
-    private Date orderDate;
+    private LocalDate orderDate;
 
     @Column(name = "completed_date")
-    private Date complitedDate;
+    private LocalDate completedDate;
 
     @ManyToOne(targetEntity = Pirate.class)
     private Pirate pirate;
@@ -38,31 +36,23 @@ public class Order {
     public Order() {
     }
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "order")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private List<ArticleOrder> articleOrderList;
 
-    public Date getOrderDate() {
+    public LocalDate getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
 
-    public Date getComplitedDate() {
-        return complitedDate;
+    public LocalDate getCompletedDate() {
+        return completedDate;
     }
 
-    public void setCompletedDate(Date complitedDate) {
-        this.complitedDate = complitedDate;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setCompletedDate(LocalDate completedDate) {
+        this.completedDate = completedDate;
     }
 
     public Pirate getPirate() {
@@ -81,6 +71,9 @@ public class Order {
         this.status = status;
     }
 
+    public List<ArticleOrder> getArticleOrderList() {
+        return articleOrderList;
+    }
     @Override
     public String toString() {
         return getClass().getSimpleName() + "(" +
@@ -89,6 +82,9 @@ public class Order {
                 "complitedDate = " + complitedDate + ")";
     }
 
+    public void setArticleOrderList(List<ArticleOrder> articleOrderList) {
+        this.articleOrderList = articleOrderList;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) {
