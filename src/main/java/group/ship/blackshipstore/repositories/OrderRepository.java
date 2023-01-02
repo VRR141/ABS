@@ -8,8 +8,6 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends BaseRepository<Order> {
 
-    public List<Order> findAllByPirateId(Long id);
-
-    public Order findDistinctTopByPirateId(Long id);
+    List<Order> findAllByPirateId(Long id);
 
 }
