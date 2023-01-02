@@ -2,52 +2,65 @@ package group.ship.blackshipstore.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-
 import java.io.Serializable;
 import java.util.Objects;
+import org.hibernate.Hibernate;
 
 @Embeddable
 public class ItemsValuesArticlesKey implements Serializable {
 
     @Column(name = "item_id")
-    private int itemsId;
+    private Long itemsId;
 
     @Column(name = "value_id")
-    private int valuesId;
+    private Long valuesId;
 
 
     public ItemsValuesArticlesKey() {
     }
 
-    public ItemsValuesArticlesKey(int itemsId, int valuesId) {
+    public ItemsValuesArticlesKey(Long itemsId, Long valuesId) {
         this.itemsId = itemsId;
         this.valuesId = valuesId;
 
     }
 
-    public int getItemsId() {
+    public Long getItemsId() {
         return itemsId;
     }
 
-    public void setItemsId(int itemsId) {
+    public void setItemsId(Long itemsId) {
         this.itemsId = itemsId;
     }
 
-    public int getValuesId() {
+    public Long getValuesId() {
         return valuesId;
     }
 
-    public void setValuesId(int valuesId) {
+    public void setValuesId(Long valuesId) {
         this.valuesId = valuesId;
     }
 
 
     @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "itemsId = " + itemsId + ", " +
+                "valuesId = " + valuesId + ")";
+    }
+
+    @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(
+                o)) {
+            return false;
+        }
         ItemsValuesArticlesKey that = (ItemsValuesArticlesKey) o;
-        return itemsId == that.itemsId && valuesId == that.valuesId;
+        return itemsId != null && Objects.equals(itemsId, that.itemsId)
+                && valuesId != null && Objects.equals(valuesId, that.valuesId);
     }
 
     @Override

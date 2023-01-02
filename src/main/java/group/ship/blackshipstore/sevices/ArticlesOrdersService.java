@@ -23,7 +23,7 @@ public class ArticlesOrdersService {
         return articlesOrdersRepository.findAll();
     }
 
-    public ArticleOrder findOne(int id) {
+    public ArticleOrder findOne(Long id) {
         Optional<ArticleOrder> articleOrder = articlesOrdersRepository.findById(id);
         return articleOrder.orElse(null);
     }

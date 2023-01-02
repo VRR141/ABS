@@ -27,6 +27,10 @@ public class BaseEntity {
         this.id = id;
     }
 
+    public UUID getIdForComparing() {
+        return idForComparing;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
