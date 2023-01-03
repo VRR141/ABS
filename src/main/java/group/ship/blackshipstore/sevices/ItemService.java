@@ -1,6 +1,6 @@
 package group.ship.blackshipstore.sevices;
 
-import group.ship.blackshipstore.dto.ItemResponseDTO;
+import group.ship.blackshipstore.dto.ItemDto;
 import group.ship.blackshipstore.entity.Item;
 import group.ship.blackshipstore.repositories.ItemRepository;
 import org.springframework.stereotype.Service;
@@ -13,18 +13,29 @@ import java.util.stream.Collectors;
 @Service
 @Transactional(readOnly = true)
 public class ItemService {
-    private final ItemRepository repository;
-    private final Function<Item, ItemResponseDTO> itemToItemResponseDTO = entity -> new ItemResponseDTO(
-            entity.getItemName()
-    );
+    private final ItemRepository itemRepository;
 
-    public ItemService(ItemRepository repository) {
-        this.repository = repository;
+    public ItemService(ItemRepository itemRepository) {
+        this.itemRepository = itemRepository;
     }
 
-    public List<ItemResponseDTO> findAll() {
-        return repository.findAll().stream()
-                .map(itemToItemResponseDTO)
+    /*
+    Mapping Item entity to ItemDto
+     */
+    private final Function<Item, ItemDto> itemDtoFunction = entity -> new ItemDto(
+            entity.getName(),
+            entity.getUuid()
+    );
+
+    public List<ItemDto> findAll() {
+        return itemRepository.findAll().stream()
+                .map(itemDtoFunction)
+                .collect(Collectors.toList());
+    }
+
+    public List<ItemDto> findAllByCategoryId(Long categoryId) {
+        return itemRepository.findAllByCategoryId(categoryId).stream()
+                .map(itemDtoFunction)
                 .collect(Collectors.toList());
     }
 }

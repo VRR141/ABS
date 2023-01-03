@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @NoRepositoryBean
 public interface BaseRepository<T> extends JpaRepository<T, Long> {
-
 }

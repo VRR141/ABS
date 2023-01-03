@@ -1,65 +1,54 @@
 package group.ship.blackshipstore.entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import java.util.List;
-import java.util.Objects;
-import org.hibernate.Hibernate;
+import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
+import java.util.List;
+
+/*
+Category is: Одежда, Протез, Оружие, etc.
+ */
 @Entity
 @Table(name = "categories")
-public class Category {
-
+public class Category extends BaseEntity {
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    @JdbcTypeCode(SqlTypes.BIGINT)
     private Long id;
 
-    @Column(name = "category_name")
-    private String categoryName;
+    /*
+    Each Category has list of Items: Треуголка, Бандана, Шляпа etc.
+    */
+    @OneToMany(mappedBy = "category")
+    private List<Item> items;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
-    private List<Item> itemList;
+    // TODO: Rename column "categorie_name" to "name"
+    @Column(name = "name")
+    private String name;
 
-    public Category() {
+    public Long getId() {
+        return id;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public List<Item> getItems() {
+        return items;
     }
 
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "(" +
-                "id = " + id + ", " +
-                "categoryName = " + categoryName + ")";
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(
-                o)) {
-            return false;
-        }
-        Category category = (Category) o;
-        return id != null && Objects.equals(id, category.id);
+    public String getName() {
+        return name;
     }
 
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
+    public void setName(String name) {
+        this.name = name;
     }
 }

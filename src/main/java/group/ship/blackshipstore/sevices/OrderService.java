@@ -1,56 +1,51 @@
 package group.ship.blackshipstore.sevices;
 
+import group.ship.blackshipstore.dto.OrderDto;
 import group.ship.blackshipstore.entity.Order;
+import group.ship.blackshipstore.entity.Status;
 import group.ship.blackshipstore.repositories.OrderRepository;
-import group.ship.blackshipstore.repositories.StatusRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
 public class OrderService {
-
-    @Autowired
     private final OrderRepository orderRepository;
 
-    @Autowired
-    private final StatusRepository statusRepository;
-
-    public OrderService(OrderRepository orderRepository,
-                        StatusRepository statusRepository) {
+    public OrderService(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
-        this.statusRepository = statusRepository;
     }
 
-    public List<Order> getAllOrdersByPirateId(Long id) {
-        return orderRepository.findAllByPirateId(id);
+    /*
+    Mapping Order entity to OrderDto
+    */
+    private final Function<Order, OrderDto> orderDtoFunction = entity -> {
+        OrderDto orderDto = new OrderDto(entity.getUuid());
+        orderDto.setStatus(entity.getStatus());
+        orderDto.setOrderDate(entity.getOrderDate());
+        orderDto.setCompletedDate(entity.getCompletedDate());
+        return orderDto;
+    };
+
+    public List<OrderDto> getAllOrdersByPirateIdOrderByOrderDate(Long pirateId) {
+        return orderRepository.findAllByPirateIdOrderByOrderDate(pirateId).stream()
+                .map(orderDtoFunction)
+                .collect(Collectors.toList());
     }
 
-    public Order getLastOrderByPirateId(Long id) {
-        List<Order> orders = orderRepository.findAllByPirateId(id);
-        orders.sort(Comparator.comparing(Order::getOrderDate));
-        return orders.get(orders.size() - 1);
+    public List<OrderDto> getAllOrdersByPirateIdAndStatusIdOrderByOrderDate(Long pirateId, Long status) {
+        return orderRepository.findAllByPirateIdAndStatusIdOrderByOrderDate(pirateId, status).stream()
+                .map(orderDtoFunction)
+                .collect(Collectors.toList());
     }
 
-    public Order markOrderAsCompleted(Long id) {
-        LocalDate currentDate = LocalDate.now();
-        Optional<Order> order = orderRepository.findById(id);
-        order.ifPresent((order1) -> {
-            order1.setCompletedDate(currentDate);
-            order1.setStatus(statusRepository.findById(1L).orElse(null));
-            orderRepository.save(order1);
-        });
-        return order.orElse(null);
+    public List<OrderDto> getAllOrdersByStatusIdOrderByOrderDate(Long status) {
+        return orderRepository.findAllByStatusIdOrderByOrderDate(status).stream()
+                .map(orderDtoFunction)
+                .collect(Collectors.toList());
     }
-
-    public void addOrderByPirate(Order order) {
-        orderRepository.save(order);
-    }
-
 }

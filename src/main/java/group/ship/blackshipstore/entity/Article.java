@@ -1,25 +1,28 @@
 package group.ship.blackshipstore.entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import java.util.List;
-import java.util.Objects;
-import org.hibernate.Hibernate;
+import jakarta.persistence.*;
 
+/*
+Article contains Item price and total amount
+ */
 @Entity
 @Table(name = "articles")
-public class Article {
-
+public class Article extends BaseEntity {
+    // TODO: Article id = Item id
     @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @OneToOne
+    @JoinColumn(name = "id", table = "item", referencedColumnName = "item_id")
+    private Item itemId;
+
+    /*
+    Same Articles may be added to one Order many times
+    */
+    @ManyToOne
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    private Order order;
+
+    @OneToOne(mappedBy = "id")
+    private Item item;
 
     @Column(name = "price")
     private int price;
@@ -27,29 +30,28 @@ public class Article {
     @Column(name = "amount")
     private int amount;
 
-    public List<ItemValues> getItemValuesList() {
-        return itemValuesList;
+    public Item getItemId() {
+        return itemId;
     }
 
-    public void setItemValuesList(List<ItemValues> itemValuesList) {
-        this.itemValuesList = itemValuesList;
+    public void setItemId(Item itemId) {
+        this.itemId = itemId;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "article")
-    private List<ItemValues> itemValuesList;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "article")
-    private List<ArticleOrder> articleOrderList;
-
-    public Article() {
+    public Item getItem() {
+        return item;
     }
 
-    public Long getId() {
-        return id;
+    public void setItem(Item item) {
+        this.item = item;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public int getPrice() {
@@ -66,31 +68,5 @@ public class Article {
 
     public void setAmount(int amount) {
         this.amount = amount;
-    }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "(" +
-                "id = " + id + ", " +
-                "price = " + price + ", " +
-                "amount = " + amount + ")";
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(
-                o)) {
-            return false;
-        }
-        Article article = (Article) o;
-        return id != null && Objects.equals(id, article.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
     }
 }

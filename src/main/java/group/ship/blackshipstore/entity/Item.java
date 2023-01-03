@@ -1,71 +1,76 @@
 package group.ship.blackshipstore.entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import java.util.List;
-import java.util.Objects;
-import org.hibernate.Hibernate;
+import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
+import java.util.List;
+import java.util.UUID;
+
+/*
+Item is: Треуголка, Бандана, Рубашка
+ */
 @Entity
 @Table(name = "items")
-public class Item {
-
+public class Item extends BaseEntity {
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    @JdbcTypeCode(SqlTypes.BIGINT)
     private Long id;
 
+    // TODO: Rename column "item_name" to "name"
     @Column(name = "item_name")
-    private String itemName;
+    private UUID name;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id",referencedColumnName = "id")
+    /*
+    Each Item has list of Attributes
+    Each Attribute may belong to different Items
+    Each Attribute has list of Values
+    */
+    @ManyToMany(mappedBy = "items")
+    @JoinTable(
+            name = "item_attributes",
+            joinColumns = @JoinColumn(name = "item_id"),
+            inverseJoinColumns = @JoinColumn(name = "attribute_id"))
+    List<Attribute> attributes;
+
+    /*
+    Each Item has unique Category
+     */
+    @ManyToOne
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
-    @OneToMany(mappedBy = "item")
-    private List<ItemValues> itemValuesList;
-
-    public Item() {
+    public Long getId() {
+        return id;
     }
 
-    public String getItemName() {
-        return itemName;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
+    public UUID getName() {
+        return name;
     }
 
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "(" +
-                "id = " + id + ", " +
-                "itemName = " + itemName + ")";
+    public void setName(UUID name) {
+        this.name = name;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(
-                o)) {
-            return false;
-        }
-        Item item = (Item) o;
-        return id != null && Objects.equals(id, item.id);
+    public List<Attribute> getAttributes() {
+        return attributes;
     }
 
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
+    public void setAttributes(List<Attribute> attributes) {
+        this.attributes = attributes;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
