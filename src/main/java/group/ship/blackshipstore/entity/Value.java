@@ -5,11 +5,10 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "values")
 public class Value extends BaseEntity {
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "attribute_id", referencedColumnName = "id")
     private Attribute attribute;
 
-    // TODO: Rename column "value_name" to "name"
     @Column(name = "name")
     private String name;
 

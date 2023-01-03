@@ -10,7 +10,6 @@ Item is: Треуголка, Бандана, Рубашка
 @Entity
 @Table(name = "items")
 public class Item extends BaseEntity {
-// TODO: Rename column "item_name" to "name"
     @Column(name = "name")
     private Long name;
 
@@ -21,7 +20,7 @@ public class Item extends BaseEntity {
     */
     @ManyToMany(mappedBy = "items")
     @JoinTable(
-            name = "item_attributes",
+            name = "items_attributes",
             joinColumns = @JoinColumn(name = "item_id"),
             inverseJoinColumns = @JoinColumn(name = "attribute_id"))
     List<Attribute> attributes;
@@ -29,8 +28,7 @@ public class Item extends BaseEntity {
     /*
     Each Item has unique Category
      */
-    @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    @ManyToOne(targetEntity = Category.class)
     private Category category;
 
     public Long getName() {

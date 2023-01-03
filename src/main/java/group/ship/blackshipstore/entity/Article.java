@@ -2,13 +2,17 @@ package group.ship.blackshipstore.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 /*
 Article contains Item price and total amount
  */
 @Entity
 @Table(name = "articles")
 public class Article extends BaseEntity {
-    // TODO: Article id = Item id
+    /*
+    Article id = Item id
+     */
     @OneToOne
     @JoinColumn(name = "id", table = "item", referencedColumnName = "item_id")
     private Item itemId;
@@ -16,12 +20,8 @@ public class Article extends BaseEntity {
     /*
     Same Articles may be added to one Order many times
     */
-    @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
-    private Order order;
-
-    @OneToOne(mappedBy = "id")
-    private Item item;
+    @ManyToMany(mappedBy = "articles")
+    List<Order> orders;
 
     @Column(name = "price")
     private int price;
@@ -37,20 +37,12 @@ public class Article extends BaseEntity {
         this.itemId = itemId;
     }
 
-    public Item getItem() {
-        return item;
+    public List<Order> getOrders() {
+        return orders;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     public int getPrice() {

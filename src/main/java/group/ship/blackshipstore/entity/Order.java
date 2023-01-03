@@ -17,15 +17,16 @@ public class Order extends BaseEntity {
     @JoinColumn(name = "pirate_id", referencedColumnName = "id")
     private Pirate pirate;
 
+    @ManyToMany(mappedBy = "orders")
+    @JoinTable(
+            name = "orders_articles",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "article_id"))
+    private List<Article> articles;
+
     @ManyToOne
     @JoinColumn(name = "status_id", referencedColumnName = "id")
     private Status status;
-
-    @OneToMany(
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            mappedBy = "order")
-    private List<Article> articles;
 
     @Column(name = "order_date")
     private LocalDate orderDate;
@@ -41,20 +42,20 @@ public class Order extends BaseEntity {
         this.pirate = pirate;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
     public List<Article> getArticles() {
         return articles;
     }
 
     public void setArticles(List<Article> articles) {
         this.articles = articles;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public LocalDate getOrderDate() {
