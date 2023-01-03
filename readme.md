@@ -2,9 +2,10 @@
 * Spring boot
 * Data JPA
 * REST
-* SWAGGER
+* OpenAPI
 * FlyWay
 * PostgreSQL
+* Spring Security (JWT Token)
 
 
 **DataBase schema:** 
