@@ -13,59 +13,47 @@ import jakarta.persistence.Table;
 import java.util.List;
 import java.util.Objects;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "values")
 public class Value {
-
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    @JdbcTypeCode(SqlTypes.BIGINT)
     private Long id;
 
+    // TODO: Rename column "value_name" to "name"
     @Column(name = "value_name")
-    private String valueName;
-
-    @OneToMany(mappedBy = "value")
-    List<ItemValues> itemValuesList;
+    private String name;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "attribute_id", referencedColumnName = "id")
     private Attribute attribute;
 
-    public Value() {
+    public Long getId() {
+        return id;
     }
 
-    public String getValueName() {
-        return valueName;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setValueName(String valueName) {
-        this.valueName = valueName;
+    public String getName() {
+        return name;
     }
 
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "(" +
-                "id = " + id + ", " +
-                "valueName = " + valueName + ")";
+    public void setName(String name) {
+        this.name = name;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(
-                o)) {
-            return false;
-        }
-        Value value = (Value) o;
-        return id != null && Objects.equals(id, value.id);
+    public Attribute getAttribute() {
+        return attribute;
     }
 
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
+    public void setAttribute(Attribute attribute) {
+        this.attribute = attribute;
     }
 }

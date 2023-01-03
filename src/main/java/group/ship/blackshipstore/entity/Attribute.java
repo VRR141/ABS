@@ -1,62 +1,68 @@
 package group.ship.blackshipstore.entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import java.util.List;
-import java.util.Objects;
-import org.hibernate.Hibernate;
+import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
+import java.util.List;
+
+/*
+Attribute is: color, size, material, etc.
+ */
 @Entity
-public class Attribute {
+@Table(name = "attributes")
+public class Attribute extends BaseEntity {
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    @JdbcTypeCode(SqlTypes.BIGINT)
     private Long id;
 
-    @Column(name = "attribute_name")
-    private String attributeName;
+    /*
+    Each Attribute has list of Values: red, black, white, etc.
+    */
+    @OneToMany(mappedBy = "attribute")
+    private List<Value> values;
 
-    public Attribute() {
+    /*
+    Each Attribute may belong to different Items
+    Each Item has list of Attributes
+    */
+    @ManyToMany(mappedBy = "attributes")
+    private List<Item> items;
+
+    @Column(name = "name")
+    private String name;
+
+    public Long getId() {
+        return id;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "attribute")
-    private List<Value> valueList;
-
-    public String getAttributeName() {
-        return attributeName;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setAttributeName(String attributeName) {
-        this.attributeName = attributeName;
+    public List<Value> getValues() {
+        return values;
     }
 
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "(" +
-                "id = " + id + ", " +
-                "attributeName = " + attributeName + ")";
+    public void setValues(List<Value> values) {
+        this.values = values;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(
-                o)) {
-            return false;
-        }
-        Attribute attribute = (Attribute) o;
-        return id != null && Objects.equals(id, attribute.id);
+    public List<Item> getItems() {
+        return items;
     }
 
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
