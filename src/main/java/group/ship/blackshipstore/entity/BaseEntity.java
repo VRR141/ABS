@@ -1,28 +1,27 @@
 package group.ship.blackshipstore.entity;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
-import java.io.Serializable;
 import java.util.Objects;
-import java.util.UUID;
 
-@MappedSuperclass
-public class BaseEntity implements Serializable {
-    // TODO: add column "uuid" to all entity tables
-    @Column(name = "uuid", nullable = false)
-    private UUID uuid;
+public abstract class BaseEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    @JdbcTypeCode(SqlTypes.BIGINT)
+    private Long id;
 
-    public BaseEntity() {
-        uuid = UUID.randomUUID();
+    public Long getId() {
+        return id;
     }
 
-    public UUID getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
@@ -30,18 +29,11 @@ public class BaseEntity implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BaseEntity that = (BaseEntity) o;
-        return uuid.equals(that.uuid);
+        return id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uuid);
-    }
-
-    @Override
-    public String toString() {
-        return "BaseEntity{" +
-                "uuid=" + uuid +
-                '}';
+        return Objects.hash(id);
     }
 }

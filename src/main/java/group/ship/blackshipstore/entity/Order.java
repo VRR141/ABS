@@ -1,8 +1,6 @@
 package group.ship.blackshipstore.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,39 +13,26 @@ Each Pirate can make as many Orders as he likes
 @Entity
 @Table(name = "orders")
 public class Order extends BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    @JdbcTypeCode(SqlTypes.BIGINT)
-    private Long id;
-
     @ManyToOne
     @JoinColumn(name = "pirate_id", referencedColumnName = "id")
     private Pirate pirate;
 
+    @ManyToMany(mappedBy = "orders")
+    @JoinTable(
+            name = "orders_articles",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "article_id"))
+    private List<Article> articles;
+
     @ManyToOne
     @JoinColumn(name = "status_id", referencedColumnName = "id")
     private Status status;
-
-    @OneToMany(
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            mappedBy = "order")
-    private List<Article> articles;
 
     @Column(name = "order_date")
     private LocalDate orderDate;
 
     @Column(name = "completed_date")
     private LocalDate completedDate;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Pirate getPirate() {
         return pirate;
@@ -57,20 +42,20 @@ public class Order extends BaseEntity {
         this.pirate = pirate;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
     public List<Article> getArticles() {
         return articles;
     }
 
     public void setArticles(List<Article> articles) {
         this.articles = articles;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public LocalDate getOrderDate() {

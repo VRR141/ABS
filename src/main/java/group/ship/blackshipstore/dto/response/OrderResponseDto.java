@@ -1,23 +1,21 @@
-package group.ship.blackshipstore.dto;
+package group.ship.blackshipstore.dto.response;
 
 import group.ship.blackshipstore.entity.Status;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
-public class OrderDto {
-    private final UUID uuid;
-
+public class OrderResponseDto {
+    private final Long id;
     private Status status;
     private LocalDate orderDate;
     private LocalDate completedDate;
 
-    public OrderDto(UUID uuid) {
-        this.uuid = uuid;
+    public OrderResponseDto(Long id) {
+        this.id = id;
     }
 
-    public UUID getUuid() {
-        return uuid;
+    public Long getId() {
+        return id;
     }
 
     public Status getStatus() {
