@@ -1,8 +1,6 @@
 package group.ship.blackshipstore.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 /*
 Article contains Item price and total amount
@@ -10,21 +8,21 @@ Article contains Item price and total amount
 @Entity
 @Table(name = "articles")
 public class Article extends BaseEntity {
+    // TODO: Article id = Item id
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    @JdbcTypeCode(SqlTypes.BIGINT)
-    private Long id;
-
-    @OneToOne(mappedBy = "id")
-    private Item item;
+    @OneToOne
+    @JoinColumn(name = "id", table = "item", referencedColumnName = "item_id")
+    private Item itemId;
 
     /*
-    Many Articles may be added to one Order
+    Same Articles may be added to one Order many times
     */
     @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
+
+    @OneToOne(mappedBy = "id")
+    private Item item;
 
     @Column(name = "price")
     private int price;
@@ -32,12 +30,12 @@ public class Article extends BaseEntity {
     @Column(name = "amount")
     private int amount;
 
-    public Long getId() {
-        return id;
+    public Item getItemId() {
+        return itemId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setItemId(Item itemId) {
+        this.itemId = itemId;
     }
 
     public Item getItem() {

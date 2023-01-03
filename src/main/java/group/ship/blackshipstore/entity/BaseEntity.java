@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @MappedSuperclass
 public class BaseEntity implements Serializable {
-    // TODO: add column "uuid" in all entity tables
+    // TODO: add column "uuid" to all entity tables
     @Column(name = "uuid", nullable = false)
     private UUID uuid;
 
@@ -40,7 +40,7 @@ public class BaseEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "Entity{" +
+        return "BaseEntity{" +
                 "uuid=" + uuid +
                 '}';
     }

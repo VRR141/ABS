@@ -19,17 +19,17 @@ public class Attribute extends BaseEntity {
     private Long id;
 
     /*
-    Each Attribute has list of Values: red, black, white, etc.
-    */
-    @OneToMany(mappedBy = "attribute")
-    private List<Value> values;
-
-    /*
     Each Attribute may belong to different Items
     Each Item has list of Attributes
     */
     @ManyToMany(mappedBy = "attributes")
     private List<Item> items;
+
+    /*
+    Each Attribute has list of Values: red, black, white, etc.
+    */
+    @OneToMany(mappedBy = "attribute")
+    private List<Value> values;
 
     @Column(name = "name")
     private String name;
@@ -42,20 +42,20 @@ public class Attribute extends BaseEntity {
         this.id = id;
     }
 
-    public List<Value> getValues() {
-        return values;
-    }
-
-    public void setValues(List<Value> values) {
-        this.values = values;
-    }
-
     public List<Item> getItems() {
         return items;
     }
 
     public void setItems(List<Item> items) {
         this.items = items;
+    }
+
+    public List<Value> getValues() {
+        return values;
+    }
+
+    public void setValues(List<Value> values) {
+        this.values = values;
     }
 
     public String getName() {

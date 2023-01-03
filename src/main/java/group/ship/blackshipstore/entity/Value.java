@@ -25,13 +25,14 @@ public class Value {
     @JdbcTypeCode(SqlTypes.BIGINT)
     private Long id;
 
-    // TODO: Rename column "value_name" to "name"
-    @Column(name = "value_name")
-    private String name;
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "attribute_id", referencedColumnName = "id")
     private Attribute attribute;
+
+    // TODO: Rename column "value_name" to "name"
+    @Column(name = "name")
+    private String name;
+
 
     public Long getId() {
         return id;
@@ -41,19 +42,19 @@ public class Value {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Attribute getAttribute() {
         return attribute;
     }
 
     public void setAttribute(Attribute attribute) {
         this.attribute = attribute;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

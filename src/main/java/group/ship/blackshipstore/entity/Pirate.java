@@ -18,12 +18,6 @@ public class Pirate extends BaseEntity {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            mappedBy = "customer",
-            fetch = FetchType.LAZY)
-    private List<Order> orders;
-
     /*
     Each Pirate has a Role
     Each Role provides different opportunities
@@ -37,6 +31,12 @@ public class Pirate extends BaseEntity {
             joinColumns = @JoinColumn(name = "pirate_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            mappedBy = "pirate",
+            fetch = FetchType.LAZY)
+    private List<Order> orders;
 
     public Long getId() {
         return id;
@@ -54,19 +54,19 @@ public class Pirate extends BaseEntity {
         this.name = name;
     }
 
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
-
     public List<Role> getRoles() {
         return roles;
     }
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

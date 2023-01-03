@@ -21,19 +21,19 @@ public class Order extends BaseEntity {
     @JdbcTypeCode(SqlTypes.BIGINT)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "pirate_id", referencedColumnName = "id")
+    private Pirate pirate;
+
+    @ManyToOne
+    @JoinColumn(name = "status_id", referencedColumnName = "id")
+    private Status status;
+
     @OneToMany(
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             mappedBy = "order")
     private List<Article> articles;
-
-    @ManyToOne(targetEntity = Status.class)
-    @JoinColumn(name = "status_id")
-    private Status status;
-
-    @ManyToOne
-    @JoinColumn(name = "pirate_id")
-    private Pirate customer;
 
     @Column(name = "order_date")
     private LocalDate orderDate;
@@ -49,12 +49,12 @@ public class Order extends BaseEntity {
         this.id = id;
     }
 
-    public List<Article> getArticles() {
-        return articles;
+    public Pirate getPirate() {
+        return pirate;
     }
 
-    public void setArticles(List<Article> articles) {
-        this.articles = articles;
+    public void setPirate(Pirate pirate) {
+        this.pirate = pirate;
     }
 
     public Status getStatus() {
@@ -65,12 +65,12 @@ public class Order extends BaseEntity {
         this.status = status;
     }
 
-    public Pirate getCustomer() {
-        return customer;
+    public List<Article> getArticles() {
+        return articles;
     }
 
-    public void setCustomer(Pirate customer) {
-        this.customer = customer;
+    public void setArticles(List<Article> articles) {
+        this.articles = articles;
     }
 
     public LocalDate getOrderDate() {
