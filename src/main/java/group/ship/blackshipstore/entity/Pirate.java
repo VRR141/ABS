@@ -1,5 +1,6 @@
 package group.ship.blackshipstore.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,11 +29,18 @@ public class Pirate {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "password")
+    @JsonIgnore
+    private String password;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "pirate_id")
     private List<Order> orders;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "pirates_roles",
             joinColumns = @JoinColumn(name = "pirate_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -52,6 +60,38 @@ public class Pirate {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     @Override
