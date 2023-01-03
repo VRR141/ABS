@@ -14,7 +14,7 @@ public abstract class BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     @JdbcTypeCode(SqlTypes.BIGINT)
-    Long id;
+    private Long id;
 
     public Long getId() {
         return id;

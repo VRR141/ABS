@@ -3,7 +3,6 @@ package group.ship.blackshipstore.entity;
 import jakarta.persistence.*;
 
 import java.util.List;
-import java.util.UUID;
 
 /*
 Item is: Треуголка, Бандана, Рубашка
@@ -13,7 +12,7 @@ Item is: Треуголка, Бандана, Рубашка
 public class Item extends BaseEntity {
 // TODO: Rename column "item_name" to "name"
     @Column(name = "name")
-    private UUID name;
+    private Long name;
 
     /*
     Each Item has list of Attributes
@@ -34,11 +33,11 @@ public class Item extends BaseEntity {
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
-    public UUID getName() {
+    public Long getName() {
         return name;
     }
 
-    public void setName(UUID name) {
+    public void setName(Long name) {
         this.name = name;
     }
 
