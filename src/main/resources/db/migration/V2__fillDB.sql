@@ -37,12 +37,12 @@ values (3, 2, 4, 2),
        (4, 2, 5, 2);
 
 insert into pirates
-values (1, 'Андрей'),
-       (2, 'Глеб');
+values (1, 'Андрей', 'mockLog','mockPass'),
+       (2, 'Глеб', 'mockLog1', 'mockPass');
 
 insert into roles
-values (1, 'Админ'),
-       (2, 'Пользователь');
+values (1, 'ADMIN'),
+       (2, 'USER');
 
 insert into pirates_roles
 values (1, 1),
@@ -55,10 +55,7 @@ values (1, 'Выполнен'),
 insert into orders
 values (1, '2022-12-26', '2022-12-27', 1, 1),
        (2, '2022-11-25', '2022-12-29', 2, 2);
+
 insert into articles_orders
 values (1, 1, 1, 1),
        (2, 2, 2, 1);
-
-insert into credentials
-values (1, 'login', 'password', 1, true),
-       (2, 'login2', 'password2', 2, true);
