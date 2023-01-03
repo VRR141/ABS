@@ -1,7 +1,8 @@
-package group.ship.blackshipstore.dto.securitydto;
+package group.ship.blackshipstore.dto.security_dto;
 
-public class LoginDTO {
+public class RegisterDTO {
 
+    private String name;
     private String username;
     private String password;
 
@@ -19,5 +20,13 @@ public class LoginDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

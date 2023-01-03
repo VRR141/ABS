@@ -45,7 +45,8 @@ public class SecurityConfig {
                         "/swagger-ui/**",
                         "/v3/api-docs/**",
                         "/actuator/**",
-                        "/soapWS/**").permitAll()
+                        "/soapWS/**",
+                        "/swagger").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();

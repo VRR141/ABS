@@ -1,13 +1,15 @@
 package group.ship.blackshipstore.controller;
 
-import group.ship.blackshipstore.dto.securitydto.AuthResponseDTO;
-import group.ship.blackshipstore.dto.securitydto.LoginDTO;
-import group.ship.blackshipstore.dto.securitydto.RegisterDTO;
+import group.ship.blackshipstore.dto.security_dto.AuthResponseDTO;
+import group.ship.blackshipstore.dto.security_dto.LoginDTO;
+import group.ship.blackshipstore.dto.security_dto.RegisterDTO;
 import group.ship.blackshipstore.entity.Pirate;
 import group.ship.blackshipstore.entity.Role;
 import group.ship.blackshipstore.security.JwtGenerator;
 import group.ship.blackshipstore.sevices.PirateService;
 import group.ship.blackshipstore.sevices.RoleService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,7 @@ import java.util.Collections;
 
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "Authentication Controller", description = "Controller to register and login")
 public class AuthController {
 
     private AuthenticationManager authenticationManager;
@@ -48,6 +51,7 @@ public class AuthController {
     }
 
     @PostMapping("register")
+    @Operation(summary = "Register", description = "Register new Pirate, require name, login, password")
     public ResponseEntity<String> register(@RequestBody RegisterDTO registerDTO){
         if (pirateService.existsByUsername(registerDTO.getUsername())){
             return new ResponseEntity<>("Username is taken", HttpStatus.BAD_REQUEST);
@@ -66,6 +70,7 @@ public class AuthController {
     }
 
     @PostMapping("login")
+    @Operation(summary = "Login", description = "Login, require username, password, return JWT Token")
     public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDTO loginDTO){
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(

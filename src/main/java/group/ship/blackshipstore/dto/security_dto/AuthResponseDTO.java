@@ -1,4 +1,4 @@
-package group.ship.blackshipstore.dto.securitydto;
+package group.ship.blackshipstore.dto.security_dto;
 
 
 public class AuthResponseDTO {
