@@ -9,7 +9,6 @@ Article contains Item price and total amount
 @Table(name = "articles")
 public class Article extends BaseEntity {
     // TODO: Article id = Item id
-    @Id
     @OneToOne
     @JoinColumn(name = "id", table = "item", referencedColumnName = "item_id")
     private Item itemId;

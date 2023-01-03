@@ -1,8 +1,6 @@
 package group.ship.blackshipstore.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,12 +13,6 @@ Each Pirate can make as many Orders as he likes
 @Entity
 @Table(name = "orders")
 public class Order extends BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    @JdbcTypeCode(SqlTypes.BIGINT)
-    private Long id;
-
     @ManyToOne
     @JoinColumn(name = "pirate_id", referencedColumnName = "id")
     private Pirate pirate;
@@ -40,14 +32,6 @@ public class Order extends BaseEntity {
 
     @Column(name = "completed_date")
     private LocalDate completedDate;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Pirate getPirate() {
         return pirate;

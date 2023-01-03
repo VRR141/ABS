@@ -1,8 +1,6 @@
 package group.ship.blackshipstore.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 import java.util.List;
 import java.util.UUID;
@@ -13,14 +11,8 @@ Item is: Треуголка, Бандана, Рубашка
 @Entity
 @Table(name = "items")
 public class Item extends BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    @JdbcTypeCode(SqlTypes.BIGINT)
-    private Long id;
-
-    // TODO: Rename column "item_name" to "name"
-    @Column(name = "item_name")
+// TODO: Rename column "item_name" to "name"
+    @Column(name = "name")
     private UUID name;
 
     /*
@@ -41,14 +33,6 @@ public class Item extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public UUID getName() {
         return name;
