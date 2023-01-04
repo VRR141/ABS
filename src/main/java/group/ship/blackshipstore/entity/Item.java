@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 /*
-Item is: Треуголка, Бандана, Рубашка
+Item is: Bandana, Shirt, Boots, etc.
  */
 @Entity
 @Table(name = "items")
@@ -14,21 +14,20 @@ public class Item extends BaseEntity {
     private Long name;
 
     /*
-    Each Item has list of Attributes
-    Each Attribute may belong to different Items
     Each Attribute has list of Values
     */
-    @ManyToMany(mappedBy = "items")
+    @ManyToMany(targetEntity = Attribute.class)
     @JoinTable(
-            name = "items_attributes",
+            name = "factory",
             joinColumns = @JoinColumn(name = "item_id"),
             inverseJoinColumns = @JoinColumn(name = "attribute_id"))
     List<Attribute> attributes;
 
     /*
-    Each Item has unique Category
+    Category is: Headwear, Clothes, Shoes, etc.
      */
     @ManyToOne(targetEntity = Category.class)
+    @JoinColumn(name = "item_id", referencedColumnName = "id")
     private Category category;
 
     public Long getName() {

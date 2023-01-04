@@ -10,19 +10,12 @@ import java.util.List;
 @Entity
 @Table(name = "roles")
 public class Role extends BaseEntity {
-    @ManyToMany(mappedBy = "roles")
-    private List<Pirate> pirates;
 
     @Column(name = "name")
     private String name;
 
-    public List<Pirate> getPirates() {
-        return pirates;
-    }
-
-    public void setPirates(List<Pirate> pirates) {
-        this.pirates = pirates;
-    }
+    @ManyToMany(mappedBy = "roles")
+    private List<Pirate> pirates;
 
     public String getName() {
         return name;
@@ -30,5 +23,13 @@ public class Role extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Pirate> getPirates() {
+        return pirates;
+    }
+
+    public void setPirates(List<Pirate> pirates) {
+        this.pirates = pirates;
     }
 }

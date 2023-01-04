@@ -10,18 +10,6 @@ Article contains Item price and total amount
 @Entity
 @Table(name = "articles")
 public class Article extends BaseEntity {
-    /*
-    Article id = Item id
-     */
-    @OneToOne
-    @JoinColumn(name = "id", table = "item", referencedColumnName = "item_id")
-    private Item itemId;
-
-    /*
-    Same Articles may be added to one Order many times
-    */
-    @ManyToMany(mappedBy = "articles")
-    List<Order> orders;
 
     @Column(name = "price")
     private int price;
@@ -29,21 +17,23 @@ public class Article extends BaseEntity {
     @Column(name = "amount")
     private int amount;
 
-    public Item getItemId() {
-        return itemId;
-    }
+    /*
+    Each unique Article contains list of entries Item-Attribute-Value:
+    Bandana-Color-Red, Bandana-Size-L, Bandana-Material-Cotton
+    */
+    @OneToMany(targetEntity = Item.class)
+    @JoinTable(
+            name = "factory",
+            joinColumns = @JoinColumn(name = "article_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id"))
+    private List<Item> items;
 
-    public void setItemId(Item itemId) {
-        this.itemId = itemId;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
+    /*
+    One Article may be added to one Order many times
+    Article may be added to many Orders
+    */
+    @ManyToMany(mappedBy = "articles")
+    private List<Order> orders;
 
     public int getPrice() {
         return price;
@@ -59,5 +49,21 @@ public class Article extends BaseEntity {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

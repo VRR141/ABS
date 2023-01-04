@@ -7,16 +7,22 @@ import java.util.List;
 @Entity
 @Table(name = "pirates")
 public class Pirate extends BaseEntity {
+
     @Column(name = "name")
     private String name;
+
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "password")
+    private String password;
 
     /*
     Each Pirate has a Role
     Each Role provides different opportunities
     */
     @ManyToMany(
-            cascade = CascadeType.DETACH,
-            mappedBy = "pirates",
+            targetEntity = Role.class,
             fetch = FetchType.EAGER)
     @JoinTable(
             name = "pirates_roles",
@@ -28,6 +34,7 @@ public class Pirate extends BaseEntity {
             cascade = CascadeType.ALL,
             mappedBy = "pirate",
             fetch = FetchType.LAZY)
+//    @JoinColumn(name = "pirate_id", referencedColumnName = "id")
     private List<Order> orders;
 
     public String getName() {
@@ -36,6 +43,22 @@ public class Pirate extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public List<Role> getRoles() {

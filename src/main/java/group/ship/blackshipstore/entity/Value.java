@@ -5,20 +5,16 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "values")
 public class Value extends BaseEntity {
-    @ManyToOne
-    @JoinColumn(name = "attribute_id", referencedColumnName = "id")
-    private Attribute attribute;
 
     @Column(name = "name")
     private String name;
 
-    public Attribute getAttribute() {
-        return attribute;
-    }
-
-    public void setAttribute(Attribute attribute) {
-        this.attribute = attribute;
-    }
+    @ManyToOne(targetEntity = Attribute.class)
+    @JoinTable(
+            name = "factory",
+            joinColumns = @JoinColumn(name = "value_id"),
+            inverseJoinColumns = @JoinColumn(name = "attribute_id"))
+    private Attribute attribute;
 
     public String getName() {
         return name;
@@ -26,5 +22,13 @@ public class Value extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Attribute getAttribute() {
+        return attribute;
+    }
+
+    public void setAttribute(Attribute attribute) {
+        this.attribute = attribute;
     }
 }
