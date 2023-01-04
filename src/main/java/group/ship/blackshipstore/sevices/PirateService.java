@@ -30,7 +30,7 @@ public class PirateService {
 
     @Transactional
     public Pirate save(Pirate pirate){
-        pirateRepository.saveAndFlush(pirate);
+        pirateRepository.save(pirate);
         return pirate;
     }
 
