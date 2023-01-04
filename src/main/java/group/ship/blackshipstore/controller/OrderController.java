@@ -1,6 +1,7 @@
 package group.ship.blackshipstore.controller;
 
 import group.ship.blackshipstore.dto.response.OrderResponseDto;
+import group.ship.blackshipstore.entity.Article;
 import group.ship.blackshipstore.entity.Order;
 import group.ship.blackshipstore.sevices.OrderService;
 import jakarta.websocket.server.PathParam;
@@ -38,12 +39,12 @@ public class OrderController {
         return orderService.getAllOrdersByStatusIdOrderByOrderDate(id);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("pirateLast/{id}")
     public OrderResponseDto getLastOrderByPirateId(@PathVariable Long id) {
         return orderService.getLastPirateOrderByPirateId(id);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("completed/{id}")
     public OrderResponseDto markAsCompleted(@PathVariable Long id) {
         return orderService.markAsCompleted(id);
     }
@@ -52,5 +53,10 @@ public class OrderController {
     @PostMapping("")
     public void addOrder(@RequestBody Order order) {
         orderService.addOrderByPirateId(order);
+    }
+
+    @PatchMapping("articles/{id}")
+    public void addArticlesInOrder(Article article, @PathVariable Long id) {
+        orderService.addArticlesInOrder(article, id);
     }
 }
