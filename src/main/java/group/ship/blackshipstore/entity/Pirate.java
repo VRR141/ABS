@@ -22,7 +22,7 @@ public class Pirate extends BaseEntity {
     Each Role provides different opportunities
     */
     @ManyToMany(
-            mappedBy = "pirates",
+            targetEntity = Role.class,
             fetch = FetchType.EAGER)
     @JoinTable(
             name = "pirates_roles",
@@ -34,7 +34,7 @@ public class Pirate extends BaseEntity {
             cascade = CascadeType.ALL,
             mappedBy = "pirate",
             fetch = FetchType.LAZY)
-    @JoinColumn(name = "pirate_id", referencedColumnName = "id")
+//    @JoinColumn(name = "pirate_id", referencedColumnName = "id")
     private List<Order> orders;
 
     public String getName() {

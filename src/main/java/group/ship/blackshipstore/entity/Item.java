@@ -16,7 +16,7 @@ public class Item extends BaseEntity {
     /*
     Each Attribute has list of Values
     */
-    @ManyToMany(mappedBy = "items")
+    @ManyToMany(targetEntity = Attribute.class)
     @JoinTable(
             name = "factory",
             joinColumns = @JoinColumn(name = "item_id"),

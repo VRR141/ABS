@@ -21,10 +21,6 @@ public class Attribute extends BaseEntity {
     Value is: Red, Black, White, etc.
     */
     @OneToMany(mappedBy = "attribute")
-    @JoinTable(
-            name = "factory",
-            joinColumns = @JoinColumn(name = "attribute_id"),
-            inverseJoinColumns = @JoinColumn(name = "value_id"))
     private List<Value> values;
 
     public String getName() {

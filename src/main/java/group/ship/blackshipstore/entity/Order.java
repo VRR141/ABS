@@ -20,7 +20,7 @@ public class Order extends BaseEntity {
     @ManyToOne(targetEntity = Status.class)
     private Status status;
 
-    @ManyToMany(mappedBy = "orders")
+    @ManyToMany(targetEntity = Article.class)
     @JoinTable(
             name = "orders_articles",
             joinColumns = @JoinColumn(name = "order_id"),

@@ -1,9 +1,6 @@
 package group.ship.blackshipstore.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "values")
@@ -13,6 +10,10 @@ public class Value extends BaseEntity {
     private String name;
 
     @ManyToOne(targetEntity = Attribute.class)
+    @JoinTable(
+            name = "factory",
+            joinColumns = @JoinColumn(name = "value_id"),
+            inverseJoinColumns = @JoinColumn(name = "attribute_id"))
     private Attribute attribute;
 
     public String getName() {
