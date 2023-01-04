@@ -1,62 +1,49 @@
 package group.ship.blackshipstore.entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+
 import java.util.List;
-import java.util.Objects;
-import org.hibernate.Hibernate;
 
+/*
+Attribute is: Color, Size, Material, etc.
+ */
 @Entity
-public class Attribute {
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Table(name = "attributes")
+public class Attribute extends BaseEntity {
 
-    @Column(name = "attribute_name")
-    private String attributeName;
+    @Column(name = "name")
+    private String name;
 
-    public Attribute() {
+    @ManyToMany(mappedBy = "attributes")
+    private List<Item> items;
+
+    /*
+    Value is: Red, Black, White, etc.
+    */
+    @OneToMany(mappedBy = "attribute")
+    private List<Value> values;
+
+    public String getName() {
+        return name;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "attribute")
-    private List<Value> valueList;
-
-    public String getAttributeName() {
-        return attributeName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setAttributeName(String attributeName) {
-        this.attributeName = attributeName;
+    public List<Item> getItems() {
+        return items;
     }
 
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "(" +
-                "id = " + id + ", " +
-                "attributeName = " + attributeName + ")";
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(
-                o)) {
-            return false;
-        }
-        Attribute attribute = (Attribute) o;
-        return id != null && Objects.equals(id, attribute.id);
+    public List<Value> getValues() {
+        return values;
     }
 
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
+    public void setValues(List<Value> values) {
+        this.values = values;
     }
 }

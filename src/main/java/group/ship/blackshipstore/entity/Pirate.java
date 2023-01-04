@@ -1,30 +1,12 @@
 package group.ship.blackshipstore.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.util.List;
-import java.util.Objects;
-import org.hibernate.Hibernate;
 
 @Entity
 @Table(name = "pirates")
-public class Pirate {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+public class Pirate extends BaseEntity {
 
     @Column(name = "name")
     private String name;
@@ -33,26 +15,27 @@ public class Pirate {
     private String username;
 
     @Column(name = "password")
-    @JsonIgnore
     private String password;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "pirate_id")
-    private List<Order> orders;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "pirates_roles",
+    /*
+    Each Pirate has a Role
+    Each Role provides different opportunities
+    */
+    @ManyToMany(
+            targetEntity = Role.class,
+            fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "pirates_roles",
             joinColumns = @JoinColumn(name = "pirate_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            mappedBy = "pirate",
+            fetch = FetchType.LAZY)
+//    @JoinColumn(name = "pirate_id", referencedColumnName = "id")
+    private List<Order> orders;
 
     public String getName() {
         return name;
@@ -78,14 +61,6 @@ public class Pirate {
         this.password = password;
     }
 
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
-
     public List<Role> getRoles() {
         return roles;
     }
@@ -94,28 +69,11 @@ public class Pirate {
         this.roles = roles;
     }
 
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "(" +
-                "id = " + id + ", " +
-                "name = " + name + ")";
+    public List<Order> getOrders() {
+        return orders;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(
-                o)) {
-            return false;
-        }
-        Pirate pirate = (Pirate) o;
-        return id != null && Objects.equals(id, pirate.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

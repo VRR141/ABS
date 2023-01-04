@@ -1,71 +1,56 @@
 package group.ship.blackshipstore.entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import java.util.List;
-import java.util.Objects;
-import org.hibernate.Hibernate;
+import jakarta.persistence.*;
 
+import java.util.List;
+
+/*
+Item is: Bandana, Shirt, Boots, etc.
+ */
 @Entity
 @Table(name = "items")
-public class Item {
+public class Item extends BaseEntity {
+    @Column(name = "name")
+    private Long name;
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    /*
+    Each Attribute has list of Values
+    */
+    @ManyToMany(targetEntity = Attribute.class)
+    @JoinTable(
+            name = "factory",
+            joinColumns = @JoinColumn(name = "item_id"),
+            inverseJoinColumns = @JoinColumn(name = "attribute_id"))
+    List<Attribute> attributes;
 
-    @Column(name = "item_name")
-    private String itemName;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id",referencedColumnName = "id")
+    /*
+    Category is: Headwear, Clothes, Shoes, etc.
+     */
+    @ManyToOne(targetEntity = Category.class)
+    @JoinColumn(name = "item_id", referencedColumnName = "id")
     private Category category;
 
-    @OneToMany(mappedBy = "item")
-    private List<ItemValues> itemValuesList;
-
-    public Item() {
+    public Long getName() {
+        return name;
     }
 
-    public String getItemName() {
-        return itemName;
+    public void setName(Long name) {
+        this.name = name;
     }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
+    public List<Attribute> getAttributes() {
+        return attributes;
     }
 
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "(" +
-                "id = " + id + ", " +
-                "itemName = " + itemName + ")";
+    public void setAttributes(List<Attribute> attributes) {
+        this.attributes = attributes;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(
-                o)) {
-            return false;
-        }
-        Item item = (Item) o;
-        return id != null && Objects.equals(id, item.id);
+    public Category getCategory() {
+        return category;
     }
 
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

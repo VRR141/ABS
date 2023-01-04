@@ -1,31 +1,18 @@
 package group.ship.blackshipstore.entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import java.util.Date;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
-import org.hibernate.Hibernate;
 
+/*
+Order is a list of Articles
+Each Article may be added to orders many times
+Each Pirate can make as many Orders as he likes
+ */
 @Entity
 @Table(name = "orders")
 public class Order extends BaseEntity {
-
-    @Column(name = "order_date")
-    private LocalDate orderDate;
-
-    @Column(name = "completed_date")
-    private LocalDate completedDate;
 
     @ManyToOne(targetEntity = Pirate.class)
     private Pirate pirate;
@@ -33,27 +20,18 @@ public class Order extends BaseEntity {
     @ManyToOne(targetEntity = Status.class)
     private Status status;
 
-    public Order() {
-    }
+    @ManyToMany(targetEntity = Article.class)
+    @JoinTable(
+            name = "orders_articles",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "article_id"))
+    private List<Article> articles;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
-    private List<ArticleOrder> articleOrderList;
+    @Column(name = "order_date")
+    private LocalDate orderDate;
 
-    public LocalDate getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(LocalDate orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    public LocalDate getCompletedDate() {
-        return completedDate;
-    }
-
-    public void setCompletedDate(LocalDate completedDate) {
-        this.completedDate = completedDate;
-    }
+    @Column(name = "completed_date")
+    private LocalDate completedDate;
 
     public Pirate getPirate() {
         return pirate;
@@ -71,40 +49,27 @@ public class Order extends BaseEntity {
         this.status = status;
     }
 
-    public List<ArticleOrder> getArticleOrderList() {
-        return articleOrderList;
+    public List<Article> getArticles() {
+        return articles;
     }
 
-
-    public void setArticleOrderList(List<ArticleOrder> articleOrderList) {
-        this.articleOrderList = articleOrderList;
+    public void setArticles(List<Article> articles) {
+        this.articles = articles;
     }
 
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "(" +
-                "id = " + getId() + ", " +
-                "idForComparing = " + getIdForComparing() + ", " +
-                "orderDate = " + getOrderDate() + ", " +
-                "completedDate = " + getCompletedDate() + ")";
+    public LocalDate getOrderDate() {
+        return orderDate;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(
-                o)) {
-            return false;
-        }
-        Order order = (Order) o;
-        return getId() != null && Objects.equals(getId(), order.getId());
+    public void setOrderDate(LocalDate orderDate) {
+        this.orderDate = orderDate;
     }
 
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
+    public LocalDate getCompletedDate() {
+        return completedDate;
+    }
+
+    public void setCompletedDate(LocalDate completedDate) {
+        this.completedDate = completedDate;
     }
 }
