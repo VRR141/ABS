@@ -36,11 +36,18 @@ public class SecurityConfig {
                 .csrf().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthEntryPoint)
+
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+
                 .and()
                 .authorizeRequests()
+
+//                  ОНО НЕ РАБОТАЕТ Я ХЗ ПОЧЕМУ
+//                .requestMatchers("/items/**").hasAnyRole("Пират")
+//                .requestMatchers("/orders/**").hasRole("Помощник Капитана")
+
                 .requestMatchers("/auth/**",
                         "/swagger-ui/**",
                         "/v3/api-docs/**",
@@ -48,6 +55,7 @@ public class SecurityConfig {
                         "/soapWS/**",
                         "/swagger").permitAll()
                 .anyRequest().authenticated()
+
                 .and()
                 .httpBasic();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
