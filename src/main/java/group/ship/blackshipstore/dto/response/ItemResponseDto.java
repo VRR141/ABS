@@ -6,9 +6,13 @@ import group.ship.blackshipstore.entity.Category;
 import java.util.List;
 
 public class ItemResponseDto {
+
     private final Long id;
+
     private String name;
+
     List<Attribute> attributes;
+
     private Category category;
 
     public ItemResponseDto(Long id) {

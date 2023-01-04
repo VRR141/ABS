@@ -18,6 +18,7 @@ public class Order extends BaseEntity {
     private Pirate pirate;
 
     @ManyToOne(targetEntity = Status.class)
+    @JoinColumn(name = "status_id", referencedColumnName = "id")
     private Status status;
 
     @ManyToMany(targetEntity = Article.class)

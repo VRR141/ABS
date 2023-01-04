@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -24,17 +23,17 @@ public class ItemService {
     /*
     Mapping Item entity to ItemDto
      */
-    private final Function<Item, ItemResponseDto> itemDtoFunction = entity -> new ItemResponseDto(entity.getName());
+    private final Function<Item, ItemResponseDto> itemDtoFunction = entity -> new ItemResponseDto(entity.getId());
 
     public List<ItemResponseDto> findAll() {
         return itemRepository.findAll().stream()
                 .map(itemDtoFunction)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public List<ItemResponseDto> findAllByCategoryId(Long categoryId) {
         return itemRepository.findAllByCategoryId(categoryId).stream()
                 .map(itemDtoFunction)
-                .collect(Collectors.toList());
+                .toList();
     }
 }

@@ -9,10 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class OrderService {
     private final OrderRepository orderRepository;
 
@@ -24,29 +23,30 @@ public class OrderService {
     /*
     Mapping Order entity to OrderDto
     */
-    private final Function<Order, OrderResponseDto> orderDtoFunction = entity -> {
-        OrderResponseDto orderResponseDto = new OrderResponseDto(entity.getId());
-        orderResponseDto.setStatus(entity.getStatus());
-        orderResponseDto.setOrderDate(entity.getOrderDate());
-        orderResponseDto.setCompletedDate(entity.getCompletedDate());
+    private final Function<Order, OrderResponseDto> orderDtoFunction = order -> {
+        OrderResponseDto orderResponseDto = new OrderResponseDto(order.getId());
+        orderResponseDto.setPirate(order.getPirate());
+        orderResponseDto.setStatus(order.getStatus());
+        orderResponseDto.setOrderDate(order.getOrderDate());
+        orderResponseDto.setCompletedDate(order.getCompletedDate());
         return orderResponseDto;
     };
 
     public List<OrderResponseDto> getAllOrdersByPirateIdOrderByOrderDate(Long pirateId) {
         return orderRepository.findAllByPirateIdOrderByOrderDate(pirateId).stream()
                 .map(orderDtoFunction)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public List<OrderResponseDto> getAllOrdersByPirateIdAndStatusIdOrderByOrderDate(Long pirateId, Long status) {
         return orderRepository.findAllByPirateIdAndStatusIdOrderByOrderDate(pirateId, status).stream()
                 .map(orderDtoFunction)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public List<OrderResponseDto> getAllOrdersByStatusIdOrderByOrderDate(Long status) {
         return orderRepository.findAllByStatusIdOrderByOrderDate(status).stream()
                 .map(orderDtoFunction)
-                .collect(Collectors.toList());
+                .toList();
     }
 }

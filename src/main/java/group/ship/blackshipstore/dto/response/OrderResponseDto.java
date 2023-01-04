@@ -1,13 +1,20 @@
 package group.ship.blackshipstore.dto.response;
 
+import group.ship.blackshipstore.entity.Pirate;
 import group.ship.blackshipstore.entity.Status;
 
 import java.time.LocalDate;
 
 public class OrderResponseDto {
+
     private final Long id;
+
+    private Pirate pirate;
+
     private Status status;
+
     private LocalDate orderDate;
+
     private LocalDate completedDate;
 
     public OrderResponseDto(Long id) {
@@ -16,6 +23,14 @@ public class OrderResponseDto {
 
     public Long getId() {
         return id;
+    }
+
+    public Pirate getPirate() {
+        return pirate;
+    }
+
+    public void setPirate(Pirate pirate) {
+        this.pirate = pirate;
     }
 
     public Status getStatus() {

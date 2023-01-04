@@ -11,7 +11,7 @@ Item is: Bandana, Shirt, Boots, etc.
 @Table(name = "items")
 public class Item extends BaseEntity {
     @Column(name = "name")
-    private Long name;
+    private String name;
 
     /*
     Each Attribute has list of Values
@@ -30,11 +30,11 @@ public class Item extends BaseEntity {
     @JoinColumn(name = "item_id", referencedColumnName = "id")
     private Category category;
 
-    public Long getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(Long name) {
+    public void setName(String name) {
         this.name = name;
     }
 
