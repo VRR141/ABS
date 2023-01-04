@@ -11,7 +11,7 @@ import java.util.Date;
 @Component
 public class JwtGenerator {
 
-    @Value("${JwtAuthEntryPoint}")
+    @Value("${jwt.secret}")
     private String secret;
 
     @Value("${jwt.expiration}")
