@@ -4,6 +4,8 @@ import group.ship.blackshipstore.dto.response.OrderResponseDto;
 import group.ship.blackshipstore.entity.Article;
 import group.ship.blackshipstore.entity.Order;
 import group.ship.blackshipstore.sevices.OrderService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/orders")
+@Tag(name = "Order Controller", description = "Order controller")
 public class OrderController {
     private final OrderService orderService;
 
