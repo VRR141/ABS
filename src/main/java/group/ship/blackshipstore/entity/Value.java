@@ -1,24 +1,19 @@
 package group.ship.blackshipstore.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "values")
 public class Value extends BaseEntity {
-    @ManyToOne
-    @JoinColumn(name = "attribute_id", referencedColumnName = "id")
-    private Attribute attribute;
 
     @Column(name = "name")
     private String name;
 
-    public Attribute getAttribute() {
-        return attribute;
-    }
-
-    public void setAttribute(Attribute attribute) {
-        this.attribute = attribute;
-    }
+    @ManyToOne(targetEntity = Attribute.class)
+    private Attribute attribute;
 
     public String getName() {
         return name;
@@ -26,5 +21,13 @@ public class Value extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Attribute getAttribute() {
+        return attribute;
+    }
+
+    public void setAttribute(Attribute attribute) {
+        this.attribute = attribute;
     }
 }

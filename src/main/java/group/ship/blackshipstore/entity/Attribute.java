@@ -5,26 +5,35 @@ import jakarta.persistence.*;
 import java.util.List;
 
 /*
-Attribute is: color, size, material, etc.
+Attribute is: Color, Size, Material, etc.
  */
 @Entity
 @Table(name = "attributes")
 public class Attribute extends BaseEntity {
-    /*
-    Each Attribute may belong to different Items
-    Each Item has list of Attributes
-    */
+
+    @Column(name = "name")
+    private String name;
+
     @ManyToMany(mappedBy = "attributes")
     private List<Item> items;
 
     /*
-    Each Attribute has list of Values: red, black, white, etc.
+    Value is: Red, Black, White, etc.
     */
     @OneToMany(mappedBy = "attribute")
+    @JoinTable(
+            name = "factory",
+            joinColumns = @JoinColumn(name = "attribute_id"),
+            inverseJoinColumns = @JoinColumn(name = "value_id"))
     private List<Value> values;
 
-    @Column(name = "name")
-    private String name;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public List<Item> getItems() {
         return items;
@@ -40,13 +49,5 @@ public class Attribute extends BaseEntity {
 
     public void setValues(List<Value> values) {
         this.values = values;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }
