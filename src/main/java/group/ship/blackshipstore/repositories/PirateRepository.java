@@ -8,7 +8,7 @@ import java.util.Optional;
 @Repository
 public interface PirateRepository extends BaseRepository<Pirate> {
 
-    Optional<Pirate>findByUsername(String username);
+    Optional<Pirate> findByUsername(String username);
 
     boolean existsByUsername(String username);
 }
