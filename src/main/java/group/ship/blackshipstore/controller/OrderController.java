@@ -1,13 +1,11 @@
 package group.ship.blackshipstore.controller;
 
 import group.ship.blackshipstore.dto.response.OrderResponseDto;
+import group.ship.blackshipstore.entity.Order;
 import group.ship.blackshipstore.sevices.OrderService;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,5 +36,21 @@ public class OrderController {
     public List<OrderResponseDto> getAllOrdersByStatusIdOrderByOrderDate(
             @PathVariable Long id) {
         return orderService.getAllOrdersByStatusIdOrderByOrderDate(id);
+    }
+
+    @GetMapping("/{id}")
+    public OrderResponseDto getLastOrderByPirateId(@PathVariable Long id) {
+        return orderService.getLastPirateOrderByPirateId(id);
+    }
+
+    @PatchMapping("/{id}")
+    public OrderResponseDto markAsCompleted(@PathVariable Long id) {
+        return orderService.markAsCompleted(id);
+    }
+
+
+    @PostMapping("")
+    public void addOrder(@RequestBody Order order) {
+        orderService.addOrderByPirateId(order);
     }
 }
