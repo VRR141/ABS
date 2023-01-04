@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional(readOnly = true)
 public class ItemService {
+
     private final ItemRepository itemRepository;
 
     @Autowired
@@ -36,5 +37,9 @@ public class ItemService {
         return itemRepository.findAllByCategoryId(categoryId).stream()
                 .map(itemDtoFunction)
                 .collect(Collectors.toList());
+    }
+
+    public ItemResponseDto findById(Long id) {
+        return itemRepository.findById(id).map(itemDtoFunction).orElse(null);
     }
 }
