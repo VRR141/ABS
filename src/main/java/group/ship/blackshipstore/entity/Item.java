@@ -5,11 +5,12 @@ import jakarta.persistence.*;
 import java.util.List;
 
 /*
-Item is: Bandana, Shirt, Boots, etc.
+Item is: Captains Hat, Shirt, Boots, etc.
  */
 @Entity
 @Table(name = "items")
 public class Item extends BaseEntity {
+
     @Column(name = "name")
     private Long name;
 
