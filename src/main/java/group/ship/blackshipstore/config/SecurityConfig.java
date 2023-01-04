@@ -46,7 +46,7 @@ public class SecurityConfig {
                         "/v3/api-docs/**",
                         "/actuator/**",
                         "/soapWS/**",
-                        "/swagger").hasRole("USER")
+                        "/swagger").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();
