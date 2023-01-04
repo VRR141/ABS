@@ -1,9 +1,6 @@
 package group.ship.blackshipstore.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.List;
 
@@ -15,7 +12,7 @@ public class Status extends BaseEntity {
     private String name;
 
     @OneToMany(mappedBy = "status")
-//    @JoinColumn(name = "status_id", referencedColumnName = "id")
+    @JoinColumn(name = "status_id", referencedColumnName = "id")
     private List<Order> orders;
 
     public String getName() {

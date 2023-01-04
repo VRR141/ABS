@@ -8,11 +8,12 @@ import jakarta.persistence.Table;
 import java.util.List;
 
 /*
-Category is: Одежда, Протез, Оружие, etc.
+Category is: Clothes, Weapons, Ships, etc.
  */
 @Entity
 @Table(name = "categories")
 public class Category extends BaseEntity {
+
      /*
     Each Category has list of Items: Треуголка, Бандана, Шляпа etc.
     */
