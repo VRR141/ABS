@@ -17,7 +17,7 @@ public class JwtParser {
     private final static String AUTHORIZATION_HEADER_NAME = "authorization";
 
     //TODO make custom exception for parse token
-    
+
     public String parseUsernameFromRequest(HttpServletRequest request){
         String authorizationToken = request.getHeader(AUTHORIZATION_HEADER_NAME);
         String[] parts = authorizationToken.split(" ");
