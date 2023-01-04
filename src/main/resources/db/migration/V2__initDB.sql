@@ -1,64 +1,96 @@
-insert into categories
-values (1, 'головной убор'),
-       (2, 'одежда'),
-       (3, 'другая вещь');
+INSERT INTO black_ship.public.pirates
+VALUES (1, 'Андрей', 'login1', 'password1'),
+       (2, 'Саня', 'login2', 'password2'),
+       (3, 'Влад', 'login3', 'password3'),
+       (4, 'Костян', 'login4', 'password4'),
+       (5, 'Глеб', 'login5', 'password5'),
+       (6, 'Саня В.', 'login6', 'password6');
 
-insert into items
-values (1, 'треуголка', 1),
-       (2, 'бандана', 1),
-       (3, 'рубашка', 2);
+INSERT INTO black_ship.public.roles
+VALUES (1, 'Капитан'),
+       (2, 'Помощник Капитана'),
+       (3, 'Пират'),
+       (4, 'Сухопутная крыса');
 
-insert into attribute
-values (1, 'цвет'),
-       (2, 'размер'),
-       (3, 'материал');
+INSERT INTO black_ship.public.pirates_roles
+VALUES (1, 1),
+       (2, 2),
+       (3, 2),
+       (4, 2),
+       (5, 2),
+       (6, 2);
 
-insert into values
-values (1, 'зеленый', 1),
-       (2, 'XL', 2),
-       (3, 'хлопок', 3);
+INSERT INTO black_ship.public.statuses
+VALUES (1, 'Выполнен'),
+       (2, 'Не выполнен'),
+       (3, 'Отмена'),
+       (4, 'Возврат');
 
-insert into articles
-values (1, 1200, 10);
+INSERT INTO black_ship.public.orders
+VALUES (1, 1, 1, '2022-12-26', '2022-12-30'),
+       (2, 2, 2, '2022-12-26', null),
+       (3, 3, 1, '2022-12-20', '2022-12-23'),
+       (4, 4, 1, '2022-12-25', '2022-12-28'),
+       (5, 5, 2, '2022-12-30', null),
+       (6, 6, 1, '2022-12-28', '2022-12-31');
 
-insert into item_values
-values (1, 1, 1, 1),
-       (2, 1, 2, 1);
+INSERT INTO black_ship.public.articles
+VALUES (1, 1200, 9),
+       (2, 1200, 5),
+       (3, 1200, 7),
+       (4, 900, 7),
+       (5, 900, 6),
+       (6, 900, 8),
+       (7, 1500, 4),
+       (8, 1500, 7),
+       (9, 1500, 5);
 
-insert into values
-values (4, 'красный', 1),
-       (5, 'S', 2);
+INSERT INTO black_ship.public.articles_orders
+VALUES (1, 1),
+       (1, 2),
+       (1, 3),
+       (2, 4),
+       (2, 5),
+       (2, 6);
 
-insert into articles
-values (2, 1500, 20);
+INSERT INTO black_ship.public.items
+VALUES (1, 'Треуголка'),
+       (2, 'Бандана'),
+       (3, 'Рубашка'),
+       (4, 'Мушкет'),
+       (5, 'Рапира'),
+       (6, 'Деревянная нога');
 
-insert into item_values
-values (3, 2, 4, 2),
-       (4, 2, 5, 2);
+INSERT INTO black_ship.public.categories
+VALUES (1, 'Головной убор'),
+       (2, 'Одежда'),
+       (3, 'Обувь'),
+       (4, 'Оружие'),
+       (5, 'Протез');
 
-insert into pirates
-values (1, 'Андрей'),
-       (2, 'Глеб');
+INSERT INTO black_ship.public.attributes
+VALUES (1, 'Цвет'),
+       (2, 'Размер'),
+       (3, 'Материал');
 
-insert into roles
-values (1, 'Админ'),
-       (2, 'Пользователь');
+INSERT INTO black_ship.public.values
+VALUES (1, 'Красный'),
+       (2, 'Черный'),
+       (3, 'Белый'),
+       (4, 'S'),
+       (5, 'M'),
+       (6, 'L'),
+       (7, 'XL'),
+       (8, 'Хлопок'),
+       (9, 'Лён'),
+       (10, 'Шёлк'),
+       (11, 'Металл'),
+       (12, 'Дерево');
 
-insert into pirates_roles
-values (1, 1),
-       (2, 2);
-
-insert into status
-values (1, 'Выполнен'),
-       (2, 'Не выполнен');
-
-insert into orders
-values (1, '2022-12-26', '2022-12-27', 1, 1),
-       (2, '2022-11-25', '2022-12-29', 2, 2);
-insert into articles_orders
-values (1, 1, 1, 1),
-       (2, 2, 2, 1);
-
-insert into credentials
-values (1, 'login', 'password', 1, true),
-       (2, 'login2', 'password2', 2, true);
+INSERT INTO black_ship.public.factory
+VALUES (1, 1, 2, 1),
+       (3, 8, 2, 1),
+       (1, 2, 2, 2),
+       (3, 8, 2, 2),
+       (1, 3, 2, 3),
+       (3, 8, 2, 3);
