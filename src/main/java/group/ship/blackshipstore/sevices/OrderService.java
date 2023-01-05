@@ -24,9 +24,10 @@ public class OrderService {
     Mapping Order entity to OrderDto
     */
     private final Function<Order, OrderResponseDto> orderDtoFunction = order -> {
-        OrderResponseDto orderResponseDto = new OrderResponseDto(order.getId());
-        orderResponseDto.setPirate(order.getPirate());
-        orderResponseDto.setStatus(order.getStatus());
+        OrderResponseDto orderResponseDto = new OrderResponseDto();
+        orderResponseDto.setId(order.getId());
+//        orderResponseDto.setPirate(order.getPirate());
+//        orderResponseDto.setStatus(order.getStatus());
         orderResponseDto.setOrderDate(order.getOrderDate());
         orderResponseDto.setCompletedDate(order.getCompletedDate());
         return orderResponseDto;
