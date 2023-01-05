@@ -20,6 +20,10 @@ public class OrderResponseDto {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public PirateResponseDto getPirate() {
         return pirate;
     }
