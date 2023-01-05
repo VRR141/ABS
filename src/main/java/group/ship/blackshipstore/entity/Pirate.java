@@ -34,7 +34,6 @@ public class Pirate extends BaseEntity {
             cascade = CascadeType.ALL,
             mappedBy = "pirate",
             fetch = FetchType.LAZY)
-//    @JoinColumn(name = "pirate_id", referencedColumnName = "id")
     private List<Order> orders;
 
     public String getName() {
