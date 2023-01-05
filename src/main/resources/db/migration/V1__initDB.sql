@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS articles
     amount int
 );
 
-CREATE TABLE IF NOT EXISTS articles_orders
+CREATE TABLE IF NOT EXISTS orders_articles
 (
     order_id   bigint REFERENCES orders (id),
     article_id bigint REFERENCES articles (id)

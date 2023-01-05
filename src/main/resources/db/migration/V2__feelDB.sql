@@ -45,7 +45,7 @@ VALUES (1, 1200, 9),
        (8, 1500, 7),
        (9, 1500, 5);
 
-INSERT INTO black_ship.public.articles_orders
+INSERT INTO black_ship.public.orders_articles
 VALUES (1, 1),
        (1, 2),
        (1, 3),
