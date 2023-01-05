@@ -11,7 +11,7 @@ public class ItemResponseDto {
 
     private String name;
 
-    List<Attribute> attributes;
+    private List<Attribute> attributes;
 
     private Category category;
 
