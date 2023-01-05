@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS values
 
 CREATE TABLE IF NOT EXISTS factory
 (
-    attribute_id bigint REFERENCES attributeResponseDtos (id),
+    attribute_id bigint REFERENCES attributes (id),
     value_id     bigint REFERENCES values (id),
     item_id      bigint REFERENCES items (id),
     article_id   bigint REFERENCES articles (id)

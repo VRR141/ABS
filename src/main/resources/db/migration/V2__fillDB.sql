@@ -53,20 +53,20 @@ VALUES (1, 1),
        (2, 5),
        (2, 6);
 
-INSERT INTO black_ship.public.items
-VALUES (1, 'Треуголка'),
-       (2, 'Бандана'),
-       (3, 'Рубашка'),
-       (4, 'Мушкет'),
-       (5, 'Рапира'),
-       (6, 'Деревянная нога');
-
 INSERT INTO black_ship.public.categories
 VALUES (1, 'Головной убор'),
        (2, 'Одежда'),
        (3, 'Обувь'),
        (4, 'Оружие'),
        (5, 'Протез');
+
+INSERT INTO black_ship.public.items
+VALUES (1, 1, 'Треуголка'),
+       (2, 1, 'Бандана'),
+       (3, 2, 'Рубашка'),
+       (4, 4, 'Мушкет'),
+       (5, 4, 'Рапира'),
+       (6, 5, 'Деревянная нога');
 
 INSERT INTO black_ship.public.attributes
 VALUES (1, 'Цвет'),
