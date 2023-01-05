@@ -12,4 +12,7 @@ public interface PirateRepository extends BaseRepository<Pirate> {
     Optional<Pirate> findByUsername(String username);
 
     boolean existsByUsername(String username);
+
+    @Query(nativeQuery = true, value = "SELECT max(id) FROM pirates")
+    Optional<Long> foundMajorId();
 }
