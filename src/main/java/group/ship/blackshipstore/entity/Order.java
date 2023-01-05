@@ -15,9 +15,11 @@ Each Pirate can make as many Orders as he likes
 public class Order extends BaseEntity {
 
     @ManyToOne(targetEntity = Pirate.class)
+    @JoinColumn(name = "pirate_id", referencedColumnName = "id")
     private Pirate pirate;
 
     @ManyToOne(targetEntity = Status.class)
+    @JoinColumn(name = "status_id", referencedColumnName = "id")
     private Status status;
 
     @ManyToMany(targetEntity = Article.class)

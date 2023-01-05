@@ -5,17 +5,31 @@ import group.ship.blackshipstore.entity.Status;
 import java.time.LocalDate;
 
 public class OrderResponseDto {
-    private final Long id;
-    private Status status;
-    private LocalDate orderDate;
-    private LocalDate completedDate;
 
-    public OrderResponseDto(Long id) {
-        this.id = id;
-    }
+    private Long id;
+
+    private PirateResponseDto pirate;
+
+    private Status status;
+
+    private LocalDate orderDate;
+
+    private LocalDate completedDate;
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public PirateResponseDto getPirate() {
+        return pirate;
+    }
+
+    public void setPirate(PirateResponseDto pirate) {
+        this.pirate = pirate;
     }
 
     public Status getStatus() {

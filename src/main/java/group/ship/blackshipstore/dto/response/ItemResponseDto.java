@@ -1,22 +1,23 @@
 package group.ship.blackshipstore.dto.response;
 
-import group.ship.blackshipstore.entity.Attribute;
-import group.ship.blackshipstore.entity.Category;
-
 import java.util.List;
 
 public class ItemResponseDto {
-    private final Long id;
-    private String name;
-    List<Attribute> attributes;
-    private Category category;
 
-    public ItemResponseDto(Long id) {
-        this.id = id;
-    }
+    private Long id;
+
+    private String name;
+
+    private List<AttributeResponseDto> attributes;
+
+    private CategoryResponseDto category;
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -27,19 +28,19 @@ public class ItemResponseDto {
         this.name = name;
     }
 
-    public List<Attribute> getAttributes() {
+    public List<AttributeResponseDto> getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(List<Attribute> attributes) {
+    public void setAttributes(List<AttributeResponseDto> attributes) {
         this.attributes = attributes;
     }
 
-    public Category getCategory() {
+    public CategoryResponseDto getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(CategoryResponseDto category) {
         this.category = category;
     }
 }
