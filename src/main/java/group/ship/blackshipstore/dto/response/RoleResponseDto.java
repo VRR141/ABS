@@ -1,12 +1,14 @@
 package group.ship.blackshipstore.dto.response;
 
-public class ValueResponseDto {
+import java.util.List;
+
+public class RoleResponseDto {
 
     private Long id;
 
     private String name;
 
-    private AttributeResponseDto attribute;
+    private List<PirateResponseDto> pirates;
 
     public Long getId() {
         return id;
@@ -24,11 +26,11 @@ public class ValueResponseDto {
         this.name = name;
     }
 
-    public AttributeResponseDto getAttribute() {
-        return attribute;
+    public List<PirateResponseDto> getPirates() {
+        return pirates;
     }
 
-    public void setAttribute(AttributeResponseDto attribute) {
-        this.attribute = attribute;
+    public void setPirates(List<PirateResponseDto> pirates) {
+        this.pirates = pirates;
     }
 }

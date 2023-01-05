@@ -1,8 +1,5 @@
 package group.ship.blackshipstore.dto.response;
 
-import group.ship.blackshipstore.entity.Attribute;
-import group.ship.blackshipstore.entity.Category;
-
 import java.util.List;
 
 public class ItemResponseDto {
@@ -11,9 +8,9 @@ public class ItemResponseDto {
 
     private String name;
 
-    private List<Attribute> attributes;
+    private List<AttributeResponseDto> attributes;
 
-    private Category category;
+    private CategoryResponseDto category;
 
     public Long getId() {
         return id;
@@ -27,19 +24,19 @@ public class ItemResponseDto {
         this.name = name;
     }
 
-    public List<Attribute> getAttributes() {
+    public List<AttributeResponseDto> getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(List<Attribute> attributes) {
+    public void setAttributes(List<AttributeResponseDto> attributes) {
         this.attributes = attributes;
     }
 
-    public Category getCategory() {
+    public CategoryResponseDto getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(CategoryResponseDto category) {
         this.category = category;
     }
 }
