@@ -5,7 +5,7 @@ import group.ship.blackshipstore.entity.Value;
 
 import java.util.List;
 
-public class AttributeResponceDto {
+public class AttributeResponseDto {
 
     private Long id;
 
