@@ -20,11 +20,7 @@ public class JwtParser {
 
     public String parseUsernameFromRequest(HttpServletRequest request){
         String authorizationToken = request.getHeader(AUTHORIZATION_HEADER_NAME);
-        String[] parts = authorizationToken.split(" ");
-        if (parts.length > 2) {
-            throw new RuntimeException("incorrect authentication token");
-        }
-        String token = parts[1];
+        String token = authorizationToken.replace("Bearer ", "");
         String username = jwtGenerator.gerUsernameFromJWT(token);
         return username;
     }
