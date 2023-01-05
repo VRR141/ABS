@@ -27,7 +27,7 @@ public class Item extends BaseEntity {
     Category is: Headwear, Clothes, Shoes, etc.
      */
     @ManyToOne(targetEntity = Category.class)
-    @JoinColumn(name = "item_id", referencedColumnName = "id")
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
     public String getName() {
