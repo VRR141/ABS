@@ -3,6 +3,7 @@ package group.ship.blackshipstore.controller;
 import group.ship.blackshipstore.dto.response.ItemResponseDto;
 import group.ship.blackshipstore.sevices.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/items")
+@PreAuthorize("hasAnyRole('Пират', 'Капитан', 'Помощник капитана')")
 public class ItemController {
     private final ItemService itemService;
 
