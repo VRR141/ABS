@@ -12,7 +12,7 @@ Item is: Captains Hat, Shirt, Boots, etc.
 public class Item extends BaseEntity {
 
     @Column(name = "name")
-    private Long name;
+    private String name;
 
     /*
     Each Attribute has list of Values
@@ -28,14 +28,14 @@ public class Item extends BaseEntity {
     Category is: Headwear, Clothes, Shoes, etc.
      */
     @ManyToOne(targetEntity = Category.class)
-    @JoinColumn(name = "item_id", referencedColumnName = "id")
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
-    public Long getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(Long name) {
+    public void setName(String name) {
         this.name = name;
     }
 
