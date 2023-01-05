@@ -4,6 +4,7 @@ import group.ship.blackshipstore.dto.response.ItemResponseDto;
 import group.ship.blackshipstore.sevices.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +26,7 @@ public class ItemController {
     }
 
     @GetMapping("/all/category/{id}")
-    public List<ItemResponseDto> getAllItemsByCategoryId(Long categoryId) {
-        return itemService.findAllByCategoryId(categoryId);
+    public List<ItemResponseDto> getAllItemsByCategoryId(@PathVariable Long id) {
+        return itemService.findAllByCategoryId(id);
     }
 }
