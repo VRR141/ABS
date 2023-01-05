@@ -1,16 +1,19 @@
 package group.ship.blackshipstore.dto.response;
 
 import group.ship.blackshipstore.entity.Item;
+import group.ship.blackshipstore.entity.Value;
 
 import java.util.List;
 
-public class CategoryResponseDto {
+public class AttributeResponceDto {
 
     private Long id;
 
+    private String name;
+
     private List<Item> items;
 
-    private String name;
+    private List<Value> values;
 
     public Long getId() {
         return id;
@@ -18,6 +21,14 @@ public class CategoryResponseDto {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<Item> getItems() {
@@ -28,11 +39,11 @@ public class CategoryResponseDto {
         this.items = items;
     }
 
-    public String getName() {
-        return name;
+    public List<Value> getValues() {
+        return values;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setValues(List<Value> values) {
+        this.values = values;
     }
 }

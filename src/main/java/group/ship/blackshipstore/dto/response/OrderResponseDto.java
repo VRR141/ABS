@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 public class OrderResponseDto {
 
-    private final Long id;
+    private Long id;
 
     private Pirate pirate;
 
@@ -16,10 +16,6 @@ public class OrderResponseDto {
     private LocalDate orderDate;
 
     private LocalDate completedDate;
-
-    public OrderResponseDto(Long id) {
-        this.id = id;
-    }
 
     public Long getId() {
         return id;
