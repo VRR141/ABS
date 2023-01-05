@@ -1,6 +1,7 @@
 package group.ship.blackshipstore.repositories;
 
 import group.ship.blackshipstore.entity.Pirate;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;

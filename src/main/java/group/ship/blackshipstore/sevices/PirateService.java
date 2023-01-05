@@ -3,6 +3,7 @@ package group.ship.blackshipstore.sevices;
 import group.ship.blackshipstore.entity.Pirate;
 import group.ship.blackshipstore.repositories.PirateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
@@ -29,7 +30,7 @@ public class PirateService {
 
     @Transactional
     public Pirate save(Pirate pirate){
-        pirateRepository.save(pirate);
+        pirateRepository.saveAndFlush(pirate);
         return pirate;
     }
 }

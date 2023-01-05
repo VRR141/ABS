@@ -32,6 +32,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+        System.out.println("WORK FILTER CHAIN");
         http
                 .csrf().disable()
                 .exceptionHandling()
@@ -45,8 +46,8 @@ public class SecurityConfig {
                 .authorizeRequests()
 
 //                  ОНО НЕ РАБОТАЕТ Я ХЗ ПОЧЕМУ
-//                .requestMatchers("/items/**").hasAnyRole("Пират")
-//                .requestMatchers("/orders/**").hasRole("Помощник Капитана")
+                .requestMatchers("/items/**").hasRole("Пират")
+                .requestMatchers("/orders/**").hasRole("Помощник Капитана")
 
                 .requestMatchers("/auth/**",
                         "/swagger-ui/**",
