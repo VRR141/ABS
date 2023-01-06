@@ -6,8 +6,10 @@
 * FlyWay
 * PostgreSQL
 * Spring Security (JWT Token)
+* ModelMapper
 
+**Flow**:
 
-**DataBase schema:** 
+**DataBase schema:**
 
-![](dbschema.jpg)
+![]()![PiratesShop.drawio.png](PiratesShop.drawio.png)
