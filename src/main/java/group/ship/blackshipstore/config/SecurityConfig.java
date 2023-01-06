@@ -22,9 +22,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
-    private CustomUserDetailsService userDetailsService;
+    private final CustomUserDetailsService userDetailsService;
 
-    private JwtAuthEntryPoint jwtAuthEntryPoint;
+    private final JwtAuthEntryPoint jwtAuthEntryPoint;
 
     @Autowired
     public SecurityConfig(CustomUserDetailsService userDetailsService, JwtAuthEntryPoint jwtAuthEntryPoint) {

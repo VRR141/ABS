@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtParser {
 
-    private JwtGenerator jwtGenerator;
+    private final JwtGenerator jwtGenerator;
 
     @Autowired
     public JwtParser(JwtGenerator jwtGenerator) {
