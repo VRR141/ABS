@@ -5,12 +5,13 @@ import group.ship.blackshipstore.repositories.PirateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Optional;
 
 @Service
 public class PirateService {
 
-    private PirateRepository pirateRepository;
+    private final PirateRepository pirateRepository;
 
     @Autowired
     public PirateService(PirateRepository pirateRepository) {
@@ -29,7 +30,7 @@ public class PirateService {
 
     @Transactional
     public Pirate save(Pirate pirate){
-        pirateRepository.save(pirate);
+        pirateRepository.saveAndFlush(pirate);
         return pirate;
     }
 }
