@@ -1,5 +1,14 @@
 **Registration**
-![](https://ibb.co/tYg6hKQ)
+
+![](https://i.postimg.cc/bJ5JD9jR/image.png)
+
+**Login**
+
+![](https://i.postimg.cc/PfZpp0Pp/image.png)
+
+**Update password (require admin authorization)**
+
+![](https://i.postimg.cc/Hshfqv9z/image.png)
 
 **Stack**:
 * Spring boot

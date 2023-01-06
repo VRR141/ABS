@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/account")
-//@PreAuthorize("hasAuthority('Пират')")
+@PreAuthorize("hasAuthority('Пират')")
 public class PiratePersonalAccountController {
 
     private final PersonalAccountService accountService;

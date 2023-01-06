@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/items")
-@PreAuthorize("hasAuthority('Пират')")
+@PreAuthorize("hasAnyAuthority('Капитан', 'Помощник Капитана')")
 public class ItemController {
     private final ItemService itemService;
 
