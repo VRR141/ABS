@@ -4,7 +4,8 @@ import group.ship.blackshipstore.dto.response.OrderResponseDto;
 import group.ship.blackshipstore.entity.Article;
 import group.ship.blackshipstore.entity.Order;
 import group.ship.blackshipstore.repositories.OrderRepository;
-import group.ship.blackshipstore.repositories.StatusRepository;
+import group.ship.blackshipstore.security.jwt.JwtParser;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,12 +21,19 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
 
-    private final StatusRepository statusRepository;
+    private final StatusService statusService;
+
+    private final PirateService pirateService;
+
+    private final JwtParser jwtParser;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository, StatusRepository statusRepository) {
+    public OrderService(OrderRepository orderRepository, JwtParser jwtParser,
+                        StatusService statusService, PirateService pirateService) {
         this.orderRepository = orderRepository;
-        this.statusRepository = statusRepository;
+        this.jwtParser = jwtParser;
+        this.statusService = statusService;
+        this.pirateService = pirateService;
     }
 
     /*
@@ -69,21 +77,25 @@ public class OrderService {
         Optional<Order> order = orderRepository.findById(id);
         order.ifPresent(order1 -> {
             order1.setCompletedDate(currentDate);
-            order1.setStatus(statusRepository.findById(1L).orElse(null));
+            order1.setStatus(statusService.getById(1L));
             orderRepository.save(order1);
         });
         return order.map(orderDtoFunction).orElse(null);
     }
 
-    public void addOrderByPirateId(Order order) {
+    public OrderResponseDto addNewOrder(HttpServletRequest request, Order order) {
+        String username = jwtParser.parseUsernameFromRequest(request);
+        pirateService.findByUsername(username).ifPresent(order::setPirate);
         orderRepository.save(order);
+        return orderDtoFunction.apply(order);
     }
 
-    public void addArticlesInOrder(Article article, Long id) {
+    public OrderResponseDto addArticlesInOrder(Article article, Long id) {
         Optional<Order> order = orderRepository.findById(id);
         order.ifPresent(order1 -> {
             order1.getArticles().add(article);
             orderRepository.save(order1);
         });
+        return order.map(orderDtoFunction).orElse(null);
     }
 }
