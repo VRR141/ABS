@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class PirateService {
 
     private final PirateRepository pirateRepository;
@@ -18,19 +19,16 @@ public class PirateService {
         this.pirateRepository = pirateRepository;
     }
 
-    @Transactional
     public Optional<Pirate> findByUsername(String username){
         return pirateRepository.findByUsername(username);
     }
 
-    @Transactional
     public boolean existsByUsername(String username){
         return pirateRepository.existsByUsername(username);
     }
 
-    @Transactional
     public Pirate save(Pirate pirate){
-        pirateRepository.saveAndFlush(pirate);
+        pirateRepository.save(pirate);
         return pirate;
     }
 }

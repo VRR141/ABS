@@ -45,6 +45,7 @@ public class SecurityConfig {
 
                 .and()
                 .authorizeRequests()
+//                .requestMatchers("/items/**").hasAuthority("Капитан")
 
                 .requestMatchers("/auth/**",
                         "/swagger-ui/**",
