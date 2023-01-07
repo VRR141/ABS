@@ -52,7 +52,7 @@ public class OrderController {
 
     @PostMapping("/new")
     public ResponseEntity<OrderResponseDto> addNewOrder(HttpServletRequest request) {
-        OrderResponseDto response = orderService.addNewOrder(request);
+        OrderResponseDto response = orderService.addNewOrderOrReturnLastUncompleted(request);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

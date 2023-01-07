@@ -1,7 +1,6 @@
 package group.ship.blackshipstore.sevices;
 
 import group.ship.blackshipstore.dto.response.OrderResponseDto;
-import group.ship.blackshipstore.entity.Article;
 import group.ship.blackshipstore.entity.Order;
 import group.ship.blackshipstore.entity.Pirate;
 import group.ship.blackshipstore.repositories.OrderRepository;
@@ -40,7 +39,7 @@ public class OrderService {
     /*
     Mapping Order entity to OrderDto
     */
-    private final Function<Order, OrderResponseDto> orderDtoFunction = order -> {
+    final Function<Order, OrderResponseDto> orderDtoFunction = order -> {
         OrderResponseDto orderResponseDto = new OrderResponseDto();
         orderResponseDto.setId(order.getId());
 //        orderResponseDto.setPirate(order.getPirate());
@@ -84,7 +83,7 @@ public class OrderService {
         return order.map(orderDtoFunction).orElse(null);
     }
 
-    public OrderResponseDto addNewOrder(HttpServletRequest request) {
+    public OrderResponseDto addNewOrderOrReturnLastUncompleted(HttpServletRequest request) {
         String username = jwtParser.parseUsernameFromRequest(request);
         Pirate pirate = pirateService.findByUsername(username).orElseThrow();
         OrderResponseDto lastOrder = getLastPirateOrderByPirateId(pirate.getId());
@@ -99,21 +98,11 @@ public class OrderService {
         }
     }
 
-    public OrderResponseDto addArticleInOrder(Article article, Long id) {
-        Optional<Order> order = orderRepository.findById(id);
-        order.ifPresent(order1 -> {
-            order1.getArticles().add(article);
-            orderRepository.save(order1);
-        });
-        return order.map(orderDtoFunction).orElseThrow();
+    public Order getById (Long id) {
+        return orderRepository.findById(id).orElseThrow();
     }
 
-    public OrderResponseDto deleteArticleInOrder(Article article, Long id) {
-        Optional<Order> order = orderRepository.findById(id);
-        order.ifPresent(order1 -> {
-            order1.getArticles().remove(article);
-            orderRepository.save(order1);
-        });
-        return order.map(orderDtoFunction).orElseThrow();
+    public void save(Order order) {
+        orderRepository.save(order);
     }
 }
