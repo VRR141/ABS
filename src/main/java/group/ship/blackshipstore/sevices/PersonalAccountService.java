@@ -12,11 +12,11 @@ import java.util.List;
 @Service
 public class PersonalAccountService {
 
-    private OrderService orderService;
+    private final OrderService orderService;
 
-    private JwtParser jwtParser;
+    private final JwtParser jwtParser;
 
-    private PirateService pirateService;
+    private final PirateService pirateService;
 
     @Autowired
     public PersonalAccountService(OrderService orderService,
