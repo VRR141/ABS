@@ -31,12 +31,12 @@ public class PiratePersonalAccountController {
     }
 
     @PatchMapping("orders/addArticle/{id}")
-    public ResponseEntity<OrderResponseDto> addArticleInOrder(Article article, @PathVariable Long id) {
-        return new ResponseEntity<>(accountService.addArticleInOrder(article, id), HttpStatus.OK);
+    public ResponseEntity<OrderResponseDto> addArticleInOrder(Article article, HttpServletRequest request) {
+        return new ResponseEntity<>(accountService.addArticleInOrder(article, request), HttpStatus.OK);
     }
 
     @PatchMapping("orders/deleteArticle/{id}")
-    public ResponseEntity<OrderResponseDto> deleteArticleInOrder(Article article, @PathVariable Long id) {
-        return new ResponseEntity<>(accountService.deleteArticleInOrder(article, id), HttpStatus.OK);
+    public ResponseEntity<OrderResponseDto> deleteArticleInOrder(Article article, HttpServletRequest request) {
+        return new ResponseEntity<>(accountService.deleteArticleInOrder(article, request), HttpStatus.OK);
     }
 }

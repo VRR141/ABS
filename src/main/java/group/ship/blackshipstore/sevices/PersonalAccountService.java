@@ -2,6 +2,7 @@ package group.ship.blackshipstore.sevices;
 
 import group.ship.blackshipstore.dto.response.OrderResponseDto;
 import group.ship.blackshipstore.entity.Article;
+import group.ship.blackshipstore.entity.Order;
 import group.ship.blackshipstore.security.jwt.JwtParser;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +34,19 @@ public class PersonalAccountService {
         return orderService.getAllOrdersByPirateIdOrderByOrderDate(id);
     }
 
-    public OrderResponseDto addArticleInOrder(Article article, Long id) {
-        return orderService.addArticleInOrder(article, id);
+    public OrderResponseDto addArticleInOrder(Article article, HttpServletRequest request) {
+        Long id = orderService.addNewOrderOrReturnLastUncompleted(request).getId();
+        Order order = orderService.getById(id);
+        order.getArticles().add(article);
+        orderService.save(order);
+        return orderService.orderDtoFunction.apply(order);
     }
 
-    public OrderResponseDto deleteArticleInOrder(Article article, Long id) {
-        return orderService.deleteArticleInOrder(article, id);
+    public OrderResponseDto deleteArticleInOrder(Article article, HttpServletRequest request) {
+        Long id = orderService.addNewOrderOrReturnLastUncompleted(request).getId();
+        Order order = orderService.getById(id);
+        order.getArticles().remove(article);
+        orderService.save(order);
+        return orderService.orderDtoFunction.apply(order);
     }
 }
