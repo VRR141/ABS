@@ -1,7 +1,6 @@
 package group.ship.blackshipstore.controller;
 
 import group.ship.blackshipstore.dto.response.OrderResponseDto;
-import group.ship.blackshipstore.entity.Order;
 import group.ship.blackshipstore.sevices.OrderService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.websocket.server.PathParam;
@@ -52,8 +51,8 @@ public class OrderController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<OrderResponseDto> addNewOrder(HttpServletRequest request, @RequestBody Order order) {
-        OrderResponseDto response = orderService.addNewOrder(request, order);
+    public ResponseEntity<OrderResponseDto> addNewOrder(HttpServletRequest request) {
+        OrderResponseDto response = orderService.addNewOrder(request);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

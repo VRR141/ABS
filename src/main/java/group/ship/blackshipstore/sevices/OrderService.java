@@ -3,6 +3,7 @@ package group.ship.blackshipstore.sevices;
 import group.ship.blackshipstore.dto.response.OrderResponseDto;
 import group.ship.blackshipstore.entity.Article;
 import group.ship.blackshipstore.entity.Order;
+import group.ship.blackshipstore.entity.Pirate;
 import group.ship.blackshipstore.repositories.OrderRepository;
 import group.ship.blackshipstore.security.jwt.JwtParser;
 import jakarta.servlet.http.HttpServletRequest;
@@ -83,11 +84,19 @@ public class OrderService {
         return order.map(orderDtoFunction).orElse(null);
     }
 
-    public OrderResponseDto addNewOrder(HttpServletRequest request, Order order) {
+    public OrderResponseDto addNewOrder(HttpServletRequest request) {
         String username = jwtParser.parseUsernameFromRequest(request);
-        pirateService.findByUsername(username).ifPresent(order::setPirate);
-        orderRepository.save(order);
-        return orderDtoFunction.apply(order);
+        Pirate pirate = pirateService.findByUsername(username).orElseThrow();
+        OrderResponseDto lastOrder = getLastPirateOrderByPirateId(pirate.getId());
+        if (lastOrder.getCompletedDate() != null) {
+            Order order = new Order();
+            order.setPirate(pirate);
+            order.setOrderDate(LocalDate.now());
+            orderRepository.save(order);
+            return orderDtoFunction.apply(order);
+        } else {
+            return  lastOrder;
+        }
     }
 
     public OrderResponseDto addArticleInOrder(Article article, Long id) {
