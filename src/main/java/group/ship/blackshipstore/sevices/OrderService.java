@@ -96,7 +96,7 @@ public class OrderService {
             order1.getArticles().add(article);
             orderRepository.save(order1);
         });
-        return order.map(orderDtoFunction).orElse(null);
+        return order.map(orderDtoFunction).orElseThrow();
     }
 
     public OrderResponseDto deleteArticleInOrder(Article article, Long id) {
@@ -105,6 +105,6 @@ public class OrderService {
             order1.getArticles().remove(article);
             orderRepository.save(order1);
         });
-        return order.map(orderDtoFunction).orElse(null);
+        return order.map(orderDtoFunction).orElseThrow();
     }
 }
