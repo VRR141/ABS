@@ -1,11 +1,9 @@
 package group.ship.blackshipstore.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import group.ship.blackshipstore.dto.security.LoginDTO;
 import group.ship.blackshipstore.dto.security.RegisterDTO;
-import group.ship.blackshipstore.security.AuthenticationService;
-import org.hamcrest.CoreMatchers;
+import group.ship.blackshipstore.sevices.security.AuthenticationService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -57,22 +55,16 @@ class AuthControllerTest {
         loginDTO.setPassword("MockPassword");
     }
 
-    @AfterEach
-    void tearDown() {
-        registerDTO = null;
-        loginDTO = null;
-    }
-
     @Test
     void register() throws Exception {
-        Mockito.when(authenticationService.checkExist(registerDTO)).thenReturn(false);
+        Mockito.when(authenticationService.checkExist(registerDTO.getUsername())).thenReturn(false);
         Mockito.when(authenticationService.register(registerDTO)).thenReturn(true);
         ResultActions response = mockMvc.perform(MockMvcRequestBuilders.post("/auth/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(registerDTO)));
 
         Mockito.verify(authenticationService, Mockito.times(1))
-                .checkExist(Mockito.any(RegisterDTO.class));
+                .checkExist(Mockito.any(String.class));
         response.andExpect(MockMvcResultMatchers.status().is(200))
                 .andExpect(MockMvcResultMatchers.content().string(successRegistrationAnswer));
     }

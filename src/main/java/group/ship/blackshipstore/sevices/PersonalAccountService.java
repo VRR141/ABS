@@ -4,6 +4,7 @@ import group.ship.blackshipstore.dto.response.OrderResponseDto;
 import group.ship.blackshipstore.security.jwt.JwtParser;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class PersonalAccountService {
 
     public List<OrderResponseDto> getSelfOrders(HttpServletRequest request){
         String username = jwtParser.parseUsernameFromRequest(request);
-        Long id = pirateService.findByUsername(username).get().getId();
+        Long id = pirateService.findByUsernameCacheable(username);
         List<OrderResponseDto> result = orderService.getAllOrdersByPirateIdOrderByOrderDate(id);
         return result;
     }
