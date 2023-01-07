@@ -1,6 +1,7 @@
 package group.ship.blackshipstore.sevices;
 
 import group.ship.blackshipstore.dto.response.OrderResponseDto;
+import group.ship.blackshipstore.entity.Article;
 import group.ship.blackshipstore.security.jwt.JwtParser;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,13 @@ public class PersonalAccountService {
         Long id = pirateService.findByUsername(username).get().getId();
         List<OrderResponseDto> result = orderService.getAllOrdersByPirateIdOrderByOrderDate(id);
         return result;
+    }
+
+    public OrderResponseDto addArticleInOrder(Article article, Long id) {
+        return orderService.addArticleInOrder(article, id);
+    }
+
+    public OrderResponseDto deleteArticleInOrder(Article article, Long id) {
+        return orderService.deleteArticleInOrder(article, id);
     }
 }

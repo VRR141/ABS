@@ -90,10 +90,19 @@ public class OrderService {
         return orderDtoFunction.apply(order);
     }
 
-    public OrderResponseDto addArticlesInOrder(Article article, Long id) {
+    public OrderResponseDto addArticleInOrder(Article article, Long id) {
         Optional<Order> order = orderRepository.findById(id);
         order.ifPresent(order1 -> {
             order1.getArticles().add(article);
+            orderRepository.save(order1);
+        });
+        return order.map(orderDtoFunction).orElse(null);
+    }
+
+    public OrderResponseDto deleteArticleInOrder(Article article, Long id) {
+        Optional<Order> order = orderRepository.findById(id);
+        order.ifPresent(order1 -> {
+            order1.getArticles().remove(article);
             orderRepository.save(order1);
         });
         return order.map(orderDtoFunction).orElse(null);
