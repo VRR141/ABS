@@ -17,7 +17,7 @@ import java.util.List;
 @PreAuthorize("hasAuthority('Пират')")
 public class PiratePersonalAccountController {
 
-    private PersonalAccountService accountService;
+    private final PersonalAccountService accountService;
 
     @Autowired
     public PiratePersonalAccountController(PersonalAccountService accountService) {
