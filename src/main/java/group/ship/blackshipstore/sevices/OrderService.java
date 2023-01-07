@@ -88,7 +88,7 @@ public class OrderService {
         String username = jwtParser.parseUsernameFromRequest(request);
         Pirate pirate = pirateService.findByUsername(username).orElseThrow();
         OrderResponseDto lastOrder = getLastPirateOrderByPirateId(pirate.getId());
-        if (lastOrder.getCompletedDate() != null) {
+        if (lastOrder.getStatus().getId() != 1L) {
             Order order = new Order();
             order.setPirate(pirate);
             order.setOrderDate(LocalDate.now());
