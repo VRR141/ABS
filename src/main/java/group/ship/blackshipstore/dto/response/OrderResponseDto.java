@@ -11,7 +11,9 @@ public class OrderResponseDto {
 
     private String statusName;
 
-    private List<String> attributeName;
+    private List<Long> articleId;
+
+    private List<String> articleName;
 
     private LocalDate orderDate;
 
@@ -41,12 +43,20 @@ public class OrderResponseDto {
         this.statusName = statusName;
     }
 
-    public List<String> getAttributeName() {
-        return attributeName;
+    public List<Long> getArticleId() {
+        return articleId;
     }
 
-    public void setAttributeName(List<String> attributeName) {
-        this.attributeName = attributeName;
+    public void setArticleId(List<Long> articleId) {
+        this.articleId = articleId;
+    }
+
+    public List<String> getArticleName() {
+        return articleName;
+    }
+
+    public void setArticleName(List<String> articleName) {
+        this.articleName = articleName;
     }
 
     public LocalDate getOrderDate() {
