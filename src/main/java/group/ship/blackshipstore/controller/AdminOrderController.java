@@ -1,9 +1,7 @@
 package group.ship.blackshipstore.controller;
 
 import group.ship.blackshipstore.dto.response.OrderResponseDto;
-import group.ship.blackshipstore.entity.Article;
 import group.ship.blackshipstore.sevices.OrderService;
-import group.ship.blackshipstore.sevices.PersonalAccountService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +14,9 @@ import java.util.List;
 public class AdminOrderController {
     private final OrderService orderService;
 
-    private final PersonalAccountService accountService;
-
     @Autowired
-    public AdminOrderController(OrderService orderService, PersonalAccountService accountService) {
+    public AdminOrderController(OrderService orderService) {
         this.orderService = orderService;
-        this.accountService = accountService;
     }
 
     @GetMapping("/pirate/{id}")
@@ -56,10 +51,5 @@ public class AdminOrderController {
     @PostMapping("")
     public void addOrder(HttpServletRequest request) {
         orderService.addNewOrderOrReturnLastUncompleted(request);
-    }
-
-    @PatchMapping("articles")
-    public void addArticlesInOrder(Article article, HttpServletRequest request) {
-        accountService.addArticleInOrder(article, request);
     }
 }
