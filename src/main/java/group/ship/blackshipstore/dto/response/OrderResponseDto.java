@@ -12,6 +12,8 @@ public class OrderResponseDto {
 
     private String statusName;
 
+    private List<String> attributeName;
+
     private LocalDate orderDate;
 
     private LocalDate completedDate;
@@ -48,6 +50,14 @@ public class OrderResponseDto {
 
     public void setStatusName(String statusName) {
         this.statusName = statusName;
+    }
+
+    public List<String> getAttributeName() {
+        return attributeName;
+    }
+
+    public void setAttributeName(List<String> attributeName) {
+        this.attributeName = attributeName;
     }
 
     public LocalDate getOrderDate() {
