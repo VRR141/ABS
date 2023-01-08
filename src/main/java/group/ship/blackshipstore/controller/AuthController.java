@@ -28,7 +28,7 @@ public class AuthController {
         this.authenticationService = authenticationService;
     }
 
-    @PostMapping("register")
+    @PostMapping("/register")
     @Operation(summary = "Register", description = "Register new Pirate, require name, login, password")
     public ResponseEntity<String> register(@RequestBody RegisterDTO registerDTO){
         if (authenticationService.checkExist(registerDTO.getUsername())){
@@ -38,7 +38,7 @@ public class AuthController {
         return new ResponseEntity<>("User registered success", HttpStatus.OK);
     }
 
-    @PostMapping("login")
+    @PostMapping("/login")
     @Operation(summary = "Login", description = "Login, require username, password, return JWT Token")
     public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDTO loginDTO){
         String token = authenticationService.login(loginDTO);
@@ -50,7 +50,7 @@ public class AuthController {
     Method for update ur password
     Send ur login and desired password as JSON
      */
-    @PostMapping("updatePassword")
+    @PostMapping("/updatePassword")
     @Hidden
     @PreAuthorize("hasAuthority('Капитан')")
     public ResponseEntity<String> updatePassword(@RequestBody LoginDTO loginDTO){
