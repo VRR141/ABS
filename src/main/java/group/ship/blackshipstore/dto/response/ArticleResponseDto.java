@@ -6,6 +6,8 @@ import java.util.List;
 
 public class ArticleResponseDto {
 
+    private long id;
+
     private List<ItemResponseDto> itemResponseDtoList;
 
     private int price;
@@ -34,5 +36,13 @@ public class ArticleResponseDto {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }
