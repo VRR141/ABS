@@ -4,6 +4,7 @@ import group.ship.blackshipstore.dto.response.OrderResponseDto;
 import group.ship.blackshipstore.entity.Order;
 import group.ship.blackshipstore.entity.Pirate;
 import group.ship.blackshipstore.repositories.OrderRepository;
+import group.ship.blackshipstore.repositories.StatusRepository;
 import group.ship.blackshipstore.security.jwt.JwtParser;
 import jakarta.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
@@ -22,7 +23,7 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
 
-    private final StatusService statusService;
+    private final StatusRepository statusRepository;
 
     private final PirateService pirateService;
 
@@ -32,10 +33,10 @@ public class OrderService {
 
     @Autowired
     public OrderService(OrderRepository orderRepository, JwtParser jwtParser,
-                        StatusService statusService, PirateService pirateService, ModelMapper mapper) {
+                        StatusRepository statusRepository, PirateService pirateService, ModelMapper mapper) {
         this.orderRepository = orderRepository;
         this.jwtParser = jwtParser;
-        this.statusService = statusService;
+        this.statusRepository = statusRepository;
         this.pirateService = pirateService;
         this.mapper = mapper;
     }
@@ -117,7 +118,7 @@ public class OrderService {
         Optional<Order> order = orderRepository.findById(id);
         order.ifPresent(order1 -> {
             order1.setCompletedDate(currentDate);
-            order1.setStatus(statusService.getById(1L));
+            order1.setStatus(statusRepository.findById(1L).orElseThrow());
             orderRepository.save(order1);
         });
         return entityToDto(order.orElseThrow());
