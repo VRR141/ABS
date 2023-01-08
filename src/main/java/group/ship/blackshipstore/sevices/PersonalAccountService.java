@@ -30,7 +30,7 @@ public class PersonalAccountService {
 
     public List<OrderResponseDto> getSelfOrders(HttpServletRequest request){
         String username = jwtParser.parseUsernameFromRequest(request);
-        Long id = pirateService.findByUsername(username).orElseThrow().getId();
+        Long id = pirateService.findByUsernameCacheable(username);
         return orderService.getAllOrdersByPirateIdOrderByOrderDate(id);
     }
 

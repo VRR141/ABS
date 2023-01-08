@@ -7,12 +7,14 @@ import group.ship.blackshipstore.sevices.PersonalAccountService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/orders")
+@PreAuthorize("hasAnyAuthority('Капитан')")
 public class AdminOrderController {
     private final OrderService orderService;
 
