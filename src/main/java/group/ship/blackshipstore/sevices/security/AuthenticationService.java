@@ -1,4 +1,4 @@
-package group.ship.blackshipstore.security;
+package group.ship.blackshipstore.sevices.security;
 
 import group.ship.blackshipstore.dto.security.LoginDTO;
 import group.ship.blackshipstore.dto.security.RegisterDTO;
@@ -9,9 +9,7 @@ public interface AuthenticationService {
 
     String login(LoginDTO loginDTO);
 
-    boolean checkExist(RegisterDTO registerDTO);
-
-    boolean checkExist(LoginDTO loginDTO);
+    boolean checkExist(String login);
 
     void updatePassword(LoginDTO loginDTO);
 }

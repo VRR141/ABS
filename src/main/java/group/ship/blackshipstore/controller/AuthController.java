@@ -3,7 +3,7 @@ package group.ship.blackshipstore.controller;
 import group.ship.blackshipstore.dto.security.AuthResponseDTO;
 import group.ship.blackshipstore.dto.security.LoginDTO;
 import group.ship.blackshipstore.dto.security.RegisterDTO;
-import group.ship.blackshipstore.security.AuthenticationService;
+import group.ship.blackshipstore.sevices.security.AuthenticationService;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,7 +31,7 @@ public class AuthController {
     @PostMapping("register")
     @Operation(summary = "Register", description = "Register new Pirate, require name, login, password")
     public ResponseEntity<String> register(@RequestBody RegisterDTO registerDTO){
-        if (authenticationService.checkExist(registerDTO)){
+        if (authenticationService.checkExist(registerDTO.getUsername())){
             return new ResponseEntity<>("Username is taken", HttpStatus.BAD_REQUEST);
         }
         authenticationService.register(registerDTO);
@@ -54,7 +54,7 @@ public class AuthController {
     @Hidden
     @PreAuthorize("hasAuthority('Капитан')")
     public ResponseEntity<String> updatePassword(@RequestBody LoginDTO loginDTO){
-        if (!authenticationService.checkExist(loginDTO)){
+        if (!authenticationService.checkExist(loginDTO.getUsername())){
             return new ResponseEntity<>("Incorrect username", HttpStatus.BAD_REQUEST);
         }
         authenticationService.updatePassword(loginDTO);

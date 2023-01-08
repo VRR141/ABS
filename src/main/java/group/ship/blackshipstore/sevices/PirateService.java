@@ -2,7 +2,9 @@ package group.ship.blackshipstore.sevices;
 
 import group.ship.blackshipstore.entity.Pirate;
 import group.ship.blackshipstore.repositories.PirateRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,5 +32,12 @@ public class PirateService {
     public Pirate save(Pirate pirate){
         pirateRepository.save(pirate);
         return pirate;
+    }
+
+    @Cacheable("longs")
+    public Long findByUsernameCacheable(String username){
+        return pirateRepository.findByUsernameCacheable(username)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Entity with " +
+                        "username %s not found", username)));
     }
 }

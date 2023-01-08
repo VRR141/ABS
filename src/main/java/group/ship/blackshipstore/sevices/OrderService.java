@@ -1,20 +1,18 @@
 package group.ship.blackshipstore.sevices;
 
 import group.ship.blackshipstore.dto.response.OrderResponseDto;
+import group.ship.blackshipstore.entity.Article;
 import group.ship.blackshipstore.entity.Order;
-import group.ship.blackshipstore.entity.Pirate;
 import group.ship.blackshipstore.repositories.OrderRepository;
-import group.ship.blackshipstore.security.jwt.JwtParser;
-import jakarta.servlet.http.HttpServletRequest;
-import org.modelmapper.ModelMapper;
+import group.ship.blackshipstore.repositories.StatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 @Service
 @Transactional(readOnly = true)
@@ -22,22 +20,12 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
 
-    private final StatusService statusService;
-
-    private final PirateService pirateService;
-
-    private final JwtParser jwtParser;
-
-    private final ModelMapper mapper;
+    private final StatusRepository statusRepository;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository, JwtParser jwtParser,
-                        StatusService statusService, PirateService pirateService, ModelMapper mapper) {
+    public OrderService(OrderRepository orderRepository, StatusRepository statusRepository) {
         this.orderRepository = orderRepository;
-        this.jwtParser = jwtParser;
-        this.statusService = statusService;
-        this.pirateService = pirateService;
-        this.mapper = mapper;
+        this.statusRepository = statusRepository;
     }
 
     /**
@@ -77,8 +65,9 @@ public class OrderService {
      @param pirateId - Pirate Id
      */
     public List<OrderResponseDto> getAllOrdersByPirateIdOrderByOrderDate(Long pirateId) {
-        List<Order> orders = orderRepository.findAllByPirateIdOrderByOrderDate(pirateId);
-        return entityToDto(orders);
+        return orderRepository.findAllByPirateIdOrderByOrderDate(pirateId).stream()
+                .map(orderDtoFunction)
+                .toList();
     }
     /**
      Gets all Orders of one Pirate with one Status and sorting in by order date
@@ -86,8 +75,9 @@ public class OrderService {
      @param status - Status ID
      */
     public List<OrderResponseDto> getAllOrdersByPirateIdAndStatusIdOrderByOrderDate(Long pirateId, Long status) {
-        List<Order> orders = orderRepository.findAllByPirateIdAndStatusIdOrderByOrderDate(pirateId, status);
-        return entityToDto(orders);
+        return orderRepository.findAllByPirateIdAndStatusIdOrderByOrderDate(pirateId, status).stream()
+                .map(orderDtoFunction)
+                .toList();
     }
 
     /**
@@ -95,8 +85,9 @@ public class OrderService {
      @param status - Status id
      */
     public List<OrderResponseDto> getAllOrdersByStatusIdOrderByOrderDate(Long status) {
-        List<Order> orders = orderRepository.findAllByStatusIdOrderByOrderDate(status);
-        return entityToDto(orders);
+        return orderRepository.findAllByStatusIdOrderByOrderDate(status).stream()
+                .map(orderDtoFunction)
+                .toList();
     }
 
     /**
@@ -117,9 +108,10 @@ public class OrderService {
         Optional<Order> order = orderRepository.findById(id);
         order.ifPresent(order1 -> {
             order1.setCompletedDate(currentDate);
-            order1.setStatus(statusService.getById(1L));
+            order1.setStatus(statusRepository.findById(1L).orElse(null));
             orderRepository.save(order1);
         });
+
         return entityToDto(order.orElseThrow());
     }
 
@@ -141,11 +133,15 @@ public class OrderService {
         }
     }
 
-    public Order getById (Long id) {
-        return orderRepository.findById(id).orElseThrow();
+    public void addOrderByPirateId(Order order) {
+        orderRepository.save(order);
     }
 
-    public void save(Order order) {
-        orderRepository.save(order);
+    public void addArticlesInOrder(Article article, Long id) {
+        Optional<Order> order = orderRepository.findById(id);
+        order.ifPresent(order1 -> {
+            order1.getArticles().add(article);
+            orderRepository.save(order1);
+        });
     }
 }
