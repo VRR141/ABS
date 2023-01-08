@@ -1,8 +1,8 @@
 package group.ship.blackshipstore.config;
 
-import group.ship.blackshipstore.security.jwt.CustomUserDetailsService;
 import group.ship.blackshipstore.security.jwt.JwtAuthEntryPoint;
 import group.ship.blackshipstore.security.jwt.JwtAuthenticationFilter;
+import group.ship.blackshipstore.sevices.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -59,6 +59,7 @@ public class SecurityConfig {
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
+
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter(){
         JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter();

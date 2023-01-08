@@ -9,17 +9,17 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class RoleService {
 
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
 
     @Autowired
     public RoleService(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
 
-    @Transactional
-    public Optional<Role> findByName(String name){
+    public Optional<Role> findByName(String name) {
         return roleRepository.findByName(name);
     }
 }

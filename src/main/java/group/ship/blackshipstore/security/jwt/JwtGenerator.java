@@ -1,6 +1,8 @@
 package group.ship.blackshipstore.security.jwt;
 
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
@@ -31,7 +33,7 @@ public class JwtGenerator {
         return token;
     }
 
-    public String gerUsernameFromJWT(String token){
+    public String getUsernameFromJWT(String token){
         Claims claims  = Jwts.parser()
                 .setSigningKey(secret)
                 .parseClaimsJws(token)
@@ -48,5 +50,4 @@ public class JwtGenerator {
             throw new AuthenticationCredentialsNotFoundException("JWT was expired or incorrect");
         }
     }
-
 }

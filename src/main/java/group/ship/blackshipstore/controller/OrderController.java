@@ -26,7 +26,7 @@ public class OrderController {
         return orderService.getAllOrdersByPirateIdOrderByOrderDate(id);
     }
 
-    @GetMapping("pirate/{id}?statusId={statusId}")
+    @GetMapping("/pirate/{id}?statusId={statusId}")
     public List<OrderResponseDto> getAllOrdersByPirateIdAndStatusIdOrderByOrderDate(
             @PathVariable Long id,
             @PathParam(value = "statusId") Long statusId) {
@@ -39,12 +39,12 @@ public class OrderController {
         return orderService.getAllOrdersByStatusIdOrderByOrderDate(id);
     }
 
-    @GetMapping("pirateLast/{id}")
+    @GetMapping("/pirateLast/{id}")
     public OrderResponseDto getLastOrderByPirateId(@PathVariable Long id) {
         return orderService.getLastPirateOrderByPirateId(id);
     }
 
-    @PatchMapping("completed/{id}")
+    @PatchMapping("/completed/{id}")
     public OrderResponseDto markAsCompleted(@PathVariable Long id) {
         return orderService.markAsCompleted(id);
     }
@@ -54,7 +54,7 @@ public class OrderController {
         orderService.addOrderByPirateId(order);
     }
 
-    @PatchMapping("articles/{id}")
+    @PatchMapping("/articles/{id}")
     public void addArticlesInOrder(Article article, @PathVariable Long id) {
         orderService.addArticlesInOrder(article, id);
     }

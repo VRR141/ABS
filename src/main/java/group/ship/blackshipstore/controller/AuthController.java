@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Authentication Controller", description = "Controller to register and login")
 public class AuthController {
 
-    private AuthenticationService authenticationService;
+    private final AuthenticationService authenticationService;
 
     @Autowired
     public AuthController(AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
     }
 
-    @PostMapping("register")
+    @PostMapping("/register")
     @Operation(summary = "Register", description = "Register new Pirate, require name, login, password")
     public ResponseEntity<String> register(@RequestBody RegisterDTO registerDTO){
         if (authenticationService.checkExist(registerDTO)){
@@ -37,7 +37,7 @@ public class AuthController {
         return new ResponseEntity<>("User registered success", HttpStatus.OK);
     }
 
-    @PostMapping("login")
+    @PostMapping("/login")
     @Operation(summary = "Login", description = "Login, require username, password, return JWT Token")
     public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDTO loginDTO){
         String token = authenticationService.login(loginDTO);
@@ -49,7 +49,7 @@ public class AuthController {
     Method for update ur password
     Send ur login and desired password as JSON
      */
-    @PostMapping("updatePassword")
+    @PostMapping("/updatePassword")
     @Hidden
     public ResponseEntity<String> updatePassword(@RequestBody LoginDTO loginDTO){
         if (!authenticationService.checkExist(loginDTO)){

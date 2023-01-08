@@ -1,9 +1,6 @@
 package group.ship.blackshipstore.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.List;
 
@@ -14,7 +11,7 @@ public class Role extends BaseEntity {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private List<Pirate> pirates;
 
     public String getName() {

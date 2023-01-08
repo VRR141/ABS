@@ -3,12 +3,14 @@ package group.ship.blackshipstore.sevices;
 import group.ship.blackshipstore.dto.response.OrderResponseDto;
 import group.ship.blackshipstore.security.jwt.JwtParser;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class PersonalAccountService {
 
     private final OrderService orderService;

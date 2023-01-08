@@ -26,8 +26,8 @@ public class Pirate extends BaseEntity {
             fetch = FetchType.EAGER)
     @JoinTable(
             name = "pirates_roles",
-            joinColumns = @JoinColumn(name = "pirate_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+            joinColumns = @JoinColumn(name = "pirate_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
 
     @OneToMany(

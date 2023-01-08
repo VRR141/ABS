@@ -20,17 +20,15 @@ import java.util.Collections;
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService{
 
-    private PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
 
-    private RoleService roleService;
+    private final PirateService pirateService;
 
-    private PirateService pirateService;
+    private final RoleService roleService;
 
-    private AuthenticationManager authenticationManager;
+    private final PasswordEncoder passwordEncoder;
 
-    private JwtGenerator jwtGenerator;
-
-    private final String defaultRole = "Пират";
+    private final JwtGenerator jwtGenerator;
 
     @Autowired
     public AuthenticationServiceImpl(
@@ -52,6 +50,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
         pirate.setName(registerDTO.getName());
         pirate.setUsername(registerDTO.getUsername());
         pirate.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
+        String defaultRole = "Пират";
         Role role = roleService.findByName(defaultRole).get();
         pirate.setRoles(Collections.singletonList(role));
         pirateService.save(pirate);

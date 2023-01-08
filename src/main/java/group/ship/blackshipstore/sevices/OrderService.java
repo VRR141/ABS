@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 public class OrderService {
 
     private final OrderRepository orderRepository;

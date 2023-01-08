@@ -1,5 +1,6 @@
 package group.ship.blackshipstore.security.jwt;
 
+import group.ship.blackshipstore.sevices.CustomUserDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,7 +14,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
@@ -37,7 +37,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
         String token = getJWTFromRequest(request);
         if (StringUtils.hasText(token) && jwtGenerator.validateToken(token)) {
-            String username = jwtGenerator.gerUsernameFromJWT(token);
+            String username = jwtGenerator.getUsernameFromJWT(token);
 
             UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
             UsernamePasswordAuthenticationToken authenticationToken
@@ -55,7 +55,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private String getJWTFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7, bearerToken.length());
+            return bearerToken.substring(7);
         }
         return null;
     }
