@@ -35,18 +35,18 @@ public class PersonalAccountService {
     }
 
     public OrderResponseDto addArticleInOrder(Article article, HttpServletRequest request) {
-        Long id = orderService.addNewOrderOrReturnLastUncompleted(request).getId();
-        Order order = orderService.getById(id);
+        OrderResponseDto dto = orderService.addNewOrderOrReturnLastUncompleted(request);
+        Order order = orderService.dtoToEntity(dto);
         order.getArticles().add(article);
         orderService.save(order);
-        return orderService.orderDtoFunction.apply(order);
+        return orderService.entityToDto(order);
     }
 
     public OrderResponseDto deleteArticleInOrder(Article article, HttpServletRequest request) {
-        Long id = orderService.addNewOrderOrReturnLastUncompleted(request).getId();
-        Order order = orderService.getById(id);
+        OrderResponseDto dto = orderService.addNewOrderOrReturnLastUncompleted(request);
+        Order order = orderService.dtoToEntity(dto);
         order.getArticles().remove(article);
         orderService.save(order);
-        return orderService.orderDtoFunction.apply(order);
+        return orderService.entityToDto(order);
     }
 }

@@ -6,11 +6,13 @@ import group.ship.blackshipstore.entity.Pirate;
 import group.ship.blackshipstore.repositories.OrderRepository;
 import group.ship.blackshipstore.security.jwt.JwtParser;
 import jakarta.servlet.http.HttpServletRequest;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -27,13 +29,16 @@ public class OrderService {
 
     private final JwtParser jwtParser;
 
+    private final ModelMapper mapper;
+
     @Autowired
     public OrderService(OrderRepository orderRepository, JwtParser jwtParser,
-                        StatusService statusService, PirateService pirateService) {
+                        StatusService statusService, PirateService pirateService, ModelMapper mapper) {
         this.orderRepository = orderRepository;
         this.jwtParser = jwtParser;
         this.statusService = statusService;
         this.pirateService = pirateService;
+        this.mapper = mapper;
     }
 
     /*
@@ -49,22 +54,39 @@ public class OrderService {
         return orderResponseDto;
     };
 
+    public OrderResponseDto entityToDto(Order order) {
+        return mapper.map(order, OrderResponseDto.class);
+    }
+
+    public Order dtoToEntity(OrderResponseDto dto) {
+        return mapper.map(dto, Order.class);
+    }
+
+    public List<OrderResponseDto> entityToDto(List<Order> orders) {
+        List<OrderResponseDto> dtoList = new ArrayList<>();
+        orders.forEach(order -> dtoList.add(mapper.map(order, OrderResponseDto.class)));
+        return dtoList;
+    }
+
+    public List<Order> dtoToEntity(List<OrderResponseDto> dtoList) {
+        List<Order> orders = new ArrayList<>();
+        dtoList.forEach(dto -> orders.add(mapper.map(dto, Order.class)));
+        return orders;
+    }
+
     public List<OrderResponseDto> getAllOrdersByPirateIdOrderByOrderDate(Long pirateId) {
-        return orderRepository.findAllByPirateIdOrderByOrderDate(pirateId).stream()
-                .map(orderDtoFunction)
-                .toList();
+        List<Order> orders = orderRepository.findAllByPirateIdOrderByOrderDate(pirateId);
+        return entityToDto(orders);
     }
 
     public List<OrderResponseDto> getAllOrdersByPirateIdAndStatusIdOrderByOrderDate(Long pirateId, Long status) {
-        return orderRepository.findAllByPirateIdAndStatusIdOrderByOrderDate(pirateId, status).stream()
-                .map(orderDtoFunction)
-                .toList();
+        List<Order> orders = orderRepository.findAllByPirateIdAndStatusIdOrderByOrderDate(pirateId, status);
+        return entityToDto(orders);
     }
 
     public List<OrderResponseDto> getAllOrdersByStatusIdOrderByOrderDate(Long status) {
-        return orderRepository.findAllByStatusIdOrderByOrderDate(status).stream()
-                .map(orderDtoFunction)
-                .toList();
+        List<Order> orders = orderRepository.findAllByStatusIdOrderByOrderDate(status);
+        return entityToDto(orders);
     }
 
     public OrderResponseDto getLastPirateOrderByPirateId(Long id) {
@@ -80,7 +102,7 @@ public class OrderService {
             order1.setStatus(statusService.getById(1L));
             orderRepository.save(order1);
         });
-        return order.map(orderDtoFunction).orElse(null);
+        return entityToDto(order.orElseThrow());
     }
 
     public OrderResponseDto addNewOrderOrReturnLastUncompleted(HttpServletRequest request) {
