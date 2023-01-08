@@ -1,6 +1,7 @@
 package group.ship.blackshipstore.repositories;
 
 import group.ship.blackshipstore.entity.Pirate;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -11,4 +12,9 @@ public interface PirateRepository extends BaseRepository<Pirate> {
     Optional<Pirate> findByUsername(String username);
 
     boolean existsByUsername(String username);
+
+    @Query(
+            nativeQuery = true,
+            value = "SELECT id from pirates where username = ?")
+    Optional<Long> findByUsernameCacheable(String username);
 }

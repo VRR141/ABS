@@ -1,5 +1,6 @@
 package group.ship.blackshipstore.config;
 
+import group.ship.blackshipstore.security.AccessDeniedHandlerJwt;
 import group.ship.blackshipstore.security.jwt.CustomUserDetailsService;
 import group.ship.blackshipstore.security.jwt.JwtAuthEntryPoint;
 import group.ship.blackshipstore.security.jwt.JwtAuthenticationFilter;
@@ -26,10 +27,16 @@ public class SecurityConfig {
 
     private final JwtAuthEntryPoint jwtAuthEntryPoint;
 
+    private final AccessDeniedHandlerJwt accessDeniedHandler;
+
     @Autowired
-    public SecurityConfig(CustomUserDetailsService userDetailsService, JwtAuthEntryPoint jwtAuthEntryPoint) {
+    public SecurityConfig(
+            CustomUserDetailsService userDetailsService,
+            JwtAuthEntryPoint jwtAuthEntryPoint,
+            AccessDeniedHandlerJwt accessDeniedHandler) {
         this.userDetailsService = userDetailsService;
         this.jwtAuthEntryPoint = jwtAuthEntryPoint;
+        this.accessDeniedHandler = accessDeniedHandler;
     }
 
     @Bean
@@ -40,12 +47,15 @@ public class SecurityConfig {
                 .authenticationEntryPoint(jwtAuthEntryPoint)
 
                 .and()
+                .exceptionHandling().
+                accessDeniedHandler(accessDeniedHandler)
+
+                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
                 .and()
                 .authorizeRequests()
-//                .requestMatchers("/items/**").hasAuthority("Капитан")
 
                 .requestMatchers("/auth/**",
                         "/swagger-ui/**",

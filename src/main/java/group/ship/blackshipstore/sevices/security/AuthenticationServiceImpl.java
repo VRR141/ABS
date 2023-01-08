@@ -1,4 +1,4 @@
-package group.ship.blackshipstore.security;
+package group.ship.blackshipstore.sevices.security;
 
 import group.ship.blackshipstore.dto.security.LoginDTO;
 import group.ship.blackshipstore.dto.security.RegisterDTO;
@@ -58,13 +58,8 @@ public class AuthenticationServiceImpl implements AuthenticationService{
         return true;
     }
 
-    @Override
-    public boolean checkExist(RegisterDTO registerDTO) {
-        return pirateService.existsByUsername(registerDTO.getUsername());
-    }
-
-    public boolean checkExist(LoginDTO loginDTO) {
-        return pirateService.existsByUsername(loginDTO.getUsername());
+    public boolean checkExist(String login){
+        return pirateService.existsByUsername(login);
     }
 
     @Override
