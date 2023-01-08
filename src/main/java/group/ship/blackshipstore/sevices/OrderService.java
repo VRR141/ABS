@@ -141,10 +141,6 @@ public class OrderService {
         }
     }
 
-    public Order getById (Long id) {
-        return orderRepository.findById(id).orElseThrow();
-    }
-
     public void save(Order order) {
         orderRepository.save(order);
     }
