@@ -1,6 +1,7 @@
 package group.ship.blackshipstore.dto.response;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class OrderResponseDto {
 
@@ -9,6 +10,8 @@ public class OrderResponseDto {
     private String pirateName;
 
     private String statusName;
+
+    private List<String> attributeName;
 
     private LocalDate orderDate;
 
@@ -36,6 +39,14 @@ public class OrderResponseDto {
 
     public void setStatusName(String statusName) {
         this.statusName = statusName;
+    }
+
+    public List<String> getAttributeName() {
+        return attributeName;
+    }
+
+    public void setAttributeName(List<String> attributeName) {
+        this.attributeName = attributeName;
     }
 
     public LocalDate getOrderDate() {
