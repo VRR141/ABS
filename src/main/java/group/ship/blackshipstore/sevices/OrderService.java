@@ -1,10 +1,13 @@
 package group.ship.blackshipstore.sevices;
 
 import group.ship.blackshipstore.dto.response.OrderResponseDto;
-import group.ship.blackshipstore.entity.Article;
 import group.ship.blackshipstore.entity.Order;
+import group.ship.blackshipstore.entity.Pirate;
 import group.ship.blackshipstore.repositories.OrderRepository;
 import group.ship.blackshipstore.repositories.StatusRepository;
+import group.ship.blackshipstore.security.jwt.JwtParser;
+import jakarta.servlet.http.HttpServletRequest;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +16,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 
 @Service
 @Transactional(readOnly = true)
@@ -23,10 +25,20 @@ public class OrderService {
 
     private final StatusRepository statusRepository;
 
+    private final PirateService pirateService;
+
+    private final JwtParser jwtParser;
+
+    private final ModelMapper mapper;
+
     @Autowired
-    public OrderService(OrderRepository orderRepository, StatusRepository statusRepository) {
+    public OrderService(OrderRepository orderRepository, JwtParser jwtParser,
+                        StatusRepository statusRepository, PirateService pirateService, ModelMapper mapper) {
         this.orderRepository = orderRepository;
+        this.jwtParser = jwtParser;
         this.statusRepository = statusRepository;
+        this.pirateService = pirateService;
+        this.mapper = mapper;
     }
 
     /**
@@ -66,9 +78,8 @@ public class OrderService {
      @param pirateId - Pirate Id
      */
     public List<OrderResponseDto> getAllOrdersByPirateIdOrderByOrderDate(Long pirateId) {
-        return orderRepository.findAllByPirateIdOrderByOrderDate(pirateId).stream()
-                .map(orderDtoFunction)
-                .toList();
+        List<Order> orders = orderRepository.findAllByPirateIdOrderByOrderDate(pirateId);
+        return entityToDto(orders);
     }
     /**
      Gets all Orders of one Pirate with one Status and sorting in by order date
@@ -76,9 +87,8 @@ public class OrderService {
      @param status - Status ID
      */
     public List<OrderResponseDto> getAllOrdersByPirateIdAndStatusIdOrderByOrderDate(Long pirateId, Long status) {
-        return orderRepository.findAllByPirateIdAndStatusIdOrderByOrderDate(pirateId, status).stream()
-                .map(orderDtoFunction)
-                .toList();
+        List<Order> orders = orderRepository.findAllByPirateIdAndStatusIdOrderByOrderDate(pirateId, status);
+        return entityToDto(orders);
     }
 
     /**
@@ -86,9 +96,8 @@ public class OrderService {
      @param status - Status id
      */
     public List<OrderResponseDto> getAllOrdersByStatusIdOrderByOrderDate(Long status) {
-        return orderRepository.findAllByStatusIdOrderByOrderDate(status).stream()
-                .map(orderDtoFunction)
-                .toList();
+        List<Order> orders = orderRepository.findAllByStatusIdOrderByOrderDate(status);
+        return entityToDto(orders);
     }
 
     /**
@@ -109,10 +118,9 @@ public class OrderService {
         Optional<Order> order = orderRepository.findById(id);
         order.ifPresent(order1 -> {
             order1.setCompletedDate(currentDate);
-            order1.setStatus(statusRepository.findById(1L).orElse(null));
+            order1.setStatus(statusRepository.findById(1L).orElseThrow());
             orderRepository.save(order1);
         });
-
         return entityToDto(order.orElseThrow());
     }
 
@@ -134,15 +142,7 @@ public class OrderService {
         }
     }
 
-    public void addOrderByPirateId(Order order) {
+    public void save(Order order) {
         orderRepository.save(order);
-    }
-
-    public void addArticlesInOrder(Article article, Long id) {
-        Optional<Order> order = orderRepository.findById(id);
-        order.ifPresent(order1 -> {
-            order1.getArticles().add(article);
-            orderRepository.save(order1);
-        });
     }
 }
