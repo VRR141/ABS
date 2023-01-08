@@ -39,7 +39,7 @@ public class PersonalAccountService {
         Order order = orderService.getById(id);
         order.getArticles().add(article);
         orderService.save(order);
-        return orderService.orderDtoFunction.apply(order);
+        return orderService.entityToDto(order);
     }
 
     public OrderResponseDto deleteArticleInOrder(Article article, HttpServletRequest request) {
@@ -47,6 +47,6 @@ public class PersonalAccountService {
         Order order = orderService.getById(id);
         order.getArticles().remove(article);
         orderService.save(order);
-        return orderService.orderDtoFunction.apply(order);
+        return orderService.entityToDto(order);
     }
 }
