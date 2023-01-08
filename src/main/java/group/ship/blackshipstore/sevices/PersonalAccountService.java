@@ -1,6 +1,8 @@
 package group.ship.blackshipstore.sevices;
 
 import group.ship.blackshipstore.dto.response.OrderResponseDto;
+import group.ship.blackshipstore.entity.Article;
+import group.ship.blackshipstore.entity.Order;
 import group.ship.blackshipstore.security.jwt.JwtParser;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +30,23 @@ public class PersonalAccountService {
 
     public List<OrderResponseDto> getSelfOrders(HttpServletRequest request){
         String username = jwtParser.parseUsernameFromRequest(request);
-        Long id = pirateService.findByUsername(username).get().getId();
-        List<OrderResponseDto> result = orderService.getAllOrdersByPirateIdOrderByOrderDate(id);
-        return result;
+        Long id = pirateService.findByUsername(username).orElseThrow().getId();
+        return orderService.getAllOrdersByPirateIdOrderByOrderDate(id);
+    }
+
+    public OrderResponseDto addArticleInOrder(Article article, HttpServletRequest request) {
+        Long id = orderService.addNewOrderOrReturnLastUncompleted(request).getId();
+        Order order = orderService.getById(id);
+        order.getArticles().add(article);
+        orderService.save(order);
+        return orderService.entityToDto(order);
+    }
+
+    public OrderResponseDto deleteArticleInOrder(Article article, HttpServletRequest request) {
+        Long id = orderService.addNewOrderOrReturnLastUncompleted(request).getId();
+        Order order = orderService.getById(id);
+        order.getArticles().remove(article);
+        orderService.save(order);
+        return orderService.entityToDto(order);
     }
 }
