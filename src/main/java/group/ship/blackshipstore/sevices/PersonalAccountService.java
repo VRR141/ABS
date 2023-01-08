@@ -29,8 +29,23 @@ public class PersonalAccountService {
 
     public List<OrderResponseDto> getSelfOrders(HttpServletRequest request){
         String username = jwtParser.parseUsernameFromRequest(request);
-        Long id = pirateService.findByUsernameCacheable(username);
-        List<OrderResponseDto> result = orderService.getAllOrdersByPirateIdOrderByOrderDate(id);
-        return result;
+        Long id = pirateService.findByUsername(username).orElseThrow().getId();
+        return orderService.getAllOrdersByPirateIdOrderByOrderDate(id);
+    }
+
+    public OrderResponseDto addArticleInOrder(Article article, HttpServletRequest request) {
+        OrderResponseDto dto = orderService.addNewOrderOrReturnLastUncompleted(request);
+        Order order = orderService.dtoToEntity(dto);
+        order.getArticles().add(article);
+        orderService.save(order);
+        return orderService.entityToDto(order);
+    }
+
+    public OrderResponseDto deleteArticleInOrder(Article article, HttpServletRequest request) {
+        OrderResponseDto dto = orderService.addNewOrderOrReturnLastUncompleted(request);
+        Order order = orderService.dtoToEntity(dto);
+        order.getArticles().remove(article);
+        orderService.save(order);
+        return orderService.entityToDto(order);
     }
 }
