@@ -1,6 +1,7 @@
 package group.ship.blackshipstore.sevices;
 
 import group.ship.blackshipstore.dto.response.OrderResponseDto;
+import group.ship.blackshipstore.entity.Article;
 import group.ship.blackshipstore.entity.Order;
 import group.ship.blackshipstore.security.jwt.JwtParser;
 import jakarta.servlet.http.HttpServletRequest;
@@ -39,16 +40,26 @@ public class PersonalAccountService {
     public OrderResponseDto addArticleInOrder(Long id, HttpServletRequest request) {
         OrderResponseDto dto = orderService.addNewOrderOrReturnLastUncompleted(request);
         Order order = orderService.dtoToEntity(dto);
-        order.getArticles().add(articleService.getArticleById(id));
+        Article article = articleService.getArticleById(id);
+
+        order.getArticles().add(article);
         orderService.save(order);
+
+        article.setAmount(article.getAmount() - 1);
+        articleService.save(article);
         return orderService.entityToDto(order);
     }
 
     public OrderResponseDto deleteArticleInOrder(Long id, HttpServletRequest request) {
         OrderResponseDto dto = orderService.addNewOrderOrReturnLastUncompleted(request);
         Order order = orderService.dtoToEntity(dto);
-        order.getArticles().remove(articleService.getArticleById(id));
+        Article article = articleService.getArticleById(id);
+
+        order.getArticles().remove(article);
         orderService.save(order);
+
+        article.setAmount(article.getAmount() + 1);
+        articleService.save(article);
         return orderService.entityToDto(order);
     }
 }
