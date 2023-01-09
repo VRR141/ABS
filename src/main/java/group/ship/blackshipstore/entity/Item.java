@@ -22,7 +22,7 @@ public class Item extends BaseEntity {
             name = "factory",
             joinColumns = @JoinColumn(name = "item_id"),
             inverseJoinColumns = @JoinColumn(name = "attribute_id"))
-    List<Attribute> attributes;
+    private List<Attribute> attributes;
 
     /*
     Category is: Headwear, Clothes, Shoes, etc.
