@@ -38,13 +38,6 @@ public class ArticleJdbcRepository {
         return resRes;
     }
 
-    private void clean(){
-        attributes.clear();
-        values.clear();
-        lonelyArticles.clear();
-        result.clear();
-    }
-
     public LonelyArticle getArticle(Long id){
         resultize();
         LonelyArticle lonelyArticle = result.get(id);
@@ -89,6 +82,13 @@ public class ArticleJdbcRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    
+    private void clean(){
+        attributes.clear();
+        values.clear();
+        lonelyArticles.clear();
+        result.clear();
     }
 
     private void parse(){
