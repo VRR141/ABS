@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import group.ship.blackshipstore.dto.security.LoginDTO;
 import group.ship.blackshipstore.dto.security.RegisterDTO;
 import group.ship.blackshipstore.sevices.security.AuthenticationService;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

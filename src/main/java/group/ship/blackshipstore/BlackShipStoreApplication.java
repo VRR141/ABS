@@ -1,5 +1,9 @@
 package group.ship.blackshipstore;
 
+import group.ship.blackshipstore.dto.response.OrderResponseDto;
+import group.ship.blackshipstore.entity.Order;
+import java.util.List;
+import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,6 +20,11 @@ public class BlackShipStoreApplication {
 
     @Bean
     public ModelMapper modelMapper() {
-        return new ModelMapper();
+        Converter<List, Boolean> SET_TO_BOOLEAN_CONVERTER =
+                mappingContext -> !mappingContext.getSource().isEmpty();
+        ModelMapper mapper = new ModelMapper();
+        mapper.createTypeMap(Order.class, OrderResponseDto.class)
+                .addMappings(m -> m.map(src -> src.getArticles(), OrderResponseDto::setArticleList));
+        return mapper;
     }
 }

@@ -34,7 +34,7 @@ public class PiratePersonalAccountController {
         accountService.addArticleInOrder(id, request);
     }
 
-    @PatchMapping("articles/{id}")
+    @PatchMapping("deleteArticles/{id}")
     public void deleteArticlesInOrder(@PathVariable Long id, HttpServletRequest request) {
         accountService.deleteArticleInOrder(id, request);
     }
