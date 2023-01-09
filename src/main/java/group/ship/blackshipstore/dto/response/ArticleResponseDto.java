@@ -1,26 +1,12 @@
 package group.ship.blackshipstore.dto.response;
 
-import jakarta.persistence.Column;
-
-import java.util.List;
-
 public class ArticleResponseDto {
 
     private long id;
 
-    private List<ItemResponseDto> itemResponseDtoList;
-
     private int price;
 
     private int amount;
-
-    public List<ItemResponseDto> getItemResponseDtoList() {
-        return itemResponseDtoList;
-    }
-
-    public void setItemResponseDtoList(List<ItemResponseDto> itemResponseDtoList) {
-        this.itemResponseDtoList = itemResponseDtoList;
-    }
 
     public int getPrice() {
         return price;
