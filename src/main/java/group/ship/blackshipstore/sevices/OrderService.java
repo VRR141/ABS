@@ -1,6 +1,8 @@
 package group.ship.blackshipstore.sevices;
 
+import group.ship.blackshipstore.dto.response.ArticleResponseDto;
 import group.ship.blackshipstore.dto.response.OrderResponseDto;
+import group.ship.blackshipstore.entity.Article;
 import group.ship.blackshipstore.entity.Order;
 import group.ship.blackshipstore.entity.Pirate;
 import group.ship.blackshipstore.repositories.OrderRepository;
@@ -34,7 +36,7 @@ public class OrderService {
 
     @Autowired
     public OrderService(OrderRepository orderRepository, JwtParser jwtParser,
-                        StatusRepository statusRepository, PirateService pirateService, ModelMapper mapper) {
+            StatusRepository statusRepository, PirateService pirateService, ModelMapper mapper) {
         this.orderRepository = orderRepository;
         this.jwtParser = jwtParser;
         this.statusRepository = statusRepository;
@@ -43,8 +45,8 @@ public class OrderService {
     }
 
     /**
-    Mapping Order entity to OrderResponseDto
-    */
+     * Mapping Order entity to OrderResponseDto
+     */
     public OrderResponseDto entityToDto(Order order) {
         TypeMap<Order, OrderResponseDto> typeMap = mapper.createTypeMap(Order.class, OrderResponseDto.class);
         typeMap.addMapping(src -> src.getPirate().getName(), OrderResponseDto::setPirateName);
@@ -59,14 +61,14 @@ public class OrderService {
     }
 
     /**
-     Mapping OrderResponseDto entity to Order
+     * Mapping OrderResponseDto entity to Order
      */
     public Order dtoToEntity(OrderResponseDto dto) {
         return mapper.map(dto, Order.class);
     }
 
     /**
-     Mapping List of Order entity to List of OrderResponseDto
+     * Mapping List of Order entity to List of OrderResponseDto
      */
     public List<OrderResponseDto> entityToDto(List<Order> orders) {
         List<OrderResponseDto> dtoList = new ArrayList<>();
@@ -75,7 +77,7 @@ public class OrderService {
     }
 
     /**
-     Mapping List of OrderResponseDto entity to List of Order
+     * Mapping List of OrderResponseDto entity to List of Order
      */
     public List<Order> dtoToEntity(List<OrderResponseDto> dtoList) {
         List<Order> orders = new ArrayList<>();
@@ -84,26 +86,57 @@ public class OrderService {
     }
 
     /**
-     Gets all Orders of one Pirate and sorting in by order date
-     @param pirateId - Pirate Id
+     * Gets all Orders of one Pirate and sorting in by order date
+     *
+     * @param pirateId - Pirate Id
      */
     public List<OrderResponseDto> getAllOrdersByPirateIdOrderByOrderDate(Long pirateId) {
         List<Order> orders = orderRepository.findAllByPirateIdOrderByOrderDate(pirateId);
         return entityToDto(orders);
     }
+//    public List<OrderResponseDto> getAllOrdersByPirateIdOrderByOrderDate(Long pirateId) {
+//        List<Order> orders = orderRepository.findAllByPirateIdOrderByOrderDate(pirateId);
+//        List<OrderResponseDto> ordersDto = new ArrayList<>();
+//        for (Order o: orders){
+//            OrderResponseDto oDto = new OrderResponseDto();
+//
+//            oDto.setId(o.getId());
+//            oDto.setOrderDate(o.getOrderDate());
+//            oDto.setCompletedDate(o.getCompletedDate());
+//            oDto.setPirateName(o.getPirate().getName());
+//            oDto.setStatusName(o.getStatus().getName());
+//
+//            List<Article> articles = o.getArticles();
+//            List<Long> aList = new ArrayList<>();
+//            for (Article a: articles){
+//                ArticleResponseDto articleResponseDto = new ArticleResponseDto();
+//                articleResponseDto.setId(a.getId());
+//                aList.add(articleResponseDto.getId());
+//            }
+//            oDto.setArticleId(aList);
+//            ordersDto.add(oDto);
+//        }
+//
+//        return ordersDto;
+//    }
+
     /**
-     Gets all Orders of one Pirate with one Status and sorting in by order date
-     @param pirateId - Pirate Id
-     @param status - Status ID
+     * Gets all Orders of one Pirate with one Status and sorting in by order date
+     *
+     * @param pirateId - Pirate Id
+     * @param status   - Status ID
      */
-    public List<OrderResponseDto> getAllOrdersByPirateIdAndStatusIdOrderByOrderDate(Long pirateId, Long status) {
-        List<Order> orders = orderRepository.findAllByPirateIdAndStatusIdOrderByOrderDate(pirateId, status);
+    public List<OrderResponseDto> getAllOrdersByPirateIdAndStatusIdOrderByOrderDate(Long pirateId,
+            Long status) {
+        List<Order> orders = orderRepository.findAllByPirateIdAndStatusIdOrderByOrderDate(pirateId,
+                status);
         return entityToDto(orders);
     }
 
     /**
-     Gets all Orders with one Status and sorting in by order date
-     @param status - Status id
+     * Gets all Orders with one Status and sorting in by order date
+     *
+     * @param status - Status id
      */
     public List<OrderResponseDto> getAllOrdersByStatusIdOrderByOrderDate(Long status) {
         List<Order> orders = orderRepository.findAllByStatusIdOrderByOrderDate(status);
@@ -111,17 +144,19 @@ public class OrderService {
     }
 
     /**
-     Gets Last order of Pirate
-     @param id - Pirate id
+     * Gets Last order of Pirate
+     *
+     * @param id - Pirate id
      */
     public OrderResponseDto getLastPirateOrderByPirateId(Long id) {
         List<OrderResponseDto> orders = getAllOrdersByPirateIdOrderByOrderDate(id);
-        return orders.get(orders.size() -1);
+        return orders.get(orders.size() - 1);
     }
 
     /**
-     Marks order as completed by setting it's completed date and status
-     @param id - Order id
+     * Marks order as completed by setting it's completed date and status
+     *
+     * @param id - Order id
      */
     public OrderResponseDto markAsCompleted(Long id) {
         LocalDate currentDate = LocalDate.now();
@@ -135,7 +170,7 @@ public class OrderService {
     }
 
     /**
-     Adds new order if Pirate has no other uncompleted orders
+     * Adds new order if Pirate has no other uncompleted orders
      */
     public OrderResponseDto addNewOrderOrReturnLastUncompleted(HttpServletRequest request) {
         String username = jwtParser.parseUsernameFromRequest(request);
@@ -148,7 +183,7 @@ public class OrderService {
             orderRepository.save(order);
             return entityToDto(order);
         } else {
-            return  lastOrder;
+            return lastOrder;
         }
     }
 

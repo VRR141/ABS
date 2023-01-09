@@ -1,5 +1,6 @@
 package group.ship.blackshipstore.dto.response;
 
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -11,19 +12,18 @@ public class OrderResponseDto {
 
     private String statusName;
 
-    private List<Long> articleId;
-
     private LocalDate orderDate;
 
     private LocalDate completedDate;
 
-    public OrderResponseDto(Long id, String pirateName, String statusName, List<Long> articleId, LocalDate orderDate, LocalDate completedDate) {
-        this.id = id;
-        this.pirateName = pirateName;
-        this.statusName = statusName;
-        this.articleId = articleId;
-        this.orderDate = orderDate;
-        this.completedDate = completedDate;
+    private List<ArticleResponseDto> articleList;
+
+    public List<ArticleResponseDto> getArticleList() {
+        return articleList;
+    }
+
+    public void setArticleList(List<ArticleResponseDto> articleList) {
+        this.articleList = articleList;
     }
 
     public Long getId() {
@@ -48,14 +48,6 @@ public class OrderResponseDto {
 
     public void setStatusName(String statusName) {
         this.statusName = statusName;
-    }
-
-    public List<Long> getArticleId() {
-        return articleId;
-    }
-
-    public void setArticleId(List<Long> articleId) {
-        this.articleId = articleId;
     }
 
     public LocalDate getOrderDate() {
