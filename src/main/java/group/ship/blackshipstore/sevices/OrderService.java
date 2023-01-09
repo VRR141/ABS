@@ -8,6 +8,7 @@ import group.ship.blackshipstore.repositories.StatusRepository;
 import group.ship.blackshipstore.security.jwt.JwtParser;
 import jakarta.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,6 +46,15 @@ public class OrderService {
     Mapping Order entity to OrderResponseDto
     */
     public OrderResponseDto entityToDto(Order order) {
+        TypeMap<Order, OrderResponseDto> typeMap = mapper.createTypeMap(Order.class, OrderResponseDto.class);
+        typeMap.addMapping(src -> src.getPirate().getName(), OrderResponseDto::setPirateName);
+        typeMap.addMapping(src -> src.getStatus().getName(), OrderResponseDto::setStatusName);
+        typeMap.addMapping(src -> {
+            List<Long> ids = new ArrayList<>();
+            src.getArticles().forEach(article -> ids.add(article.getId()));
+            return ids;
+        }, OrderResponseDto::setArticleId);
+
         return mapper.map(order, OrderResponseDto.class);
     }
 
