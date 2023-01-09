@@ -84,31 +84,6 @@ public class OrderService {
         List<Order> orders = orderRepository.findAllByPirateIdOrderByOrderDate(pirateId);
         return entityToDto(orders);
     }
-//    public List<OrderResponseDto> getAllOrdersByPirateIdOrderByOrderDate(Long pirateId) {
-//        List<Order> orders = orderRepository.findAllByPirateIdOrderByOrderDate(pirateId);
-//        List<OrderResponseDto> ordersDto = new ArrayList<>();
-//        for (Order o: orders){
-//            OrderResponseDto oDto = new OrderResponseDto();
-//
-//            oDto.setId(o.getId());
-//            oDto.setOrderDate(o.getOrderDate());
-//            oDto.setCompletedDate(o.getCompletedDate());
-//            oDto.setPirateName(o.getPirate().getName());
-//            oDto.setStatusName(o.getStatus().getName());
-//
-//            List<Article> articles = o.getArticles();
-//            List<Long> aList = new ArrayList<>();
-//            for (Article a: articles){
-//                ArticleResponseDto articleResponseDto = new ArticleResponseDto();
-//                articleResponseDto.setId(a.getId());
-//                aList.add(articleResponseDto.getId());
-//            }
-//            oDto.setArticleId(aList);
-//            ordersDto.add(oDto);
-//        }
-//
-//        return ordersDto;
-//    }
 
     /**
      * Gets all Orders of one Pirate with one Status and sorting in by order date
