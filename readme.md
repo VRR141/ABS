@@ -19,6 +19,8 @@
 * PostgreSQL
 * Spring Security (JWT Token)
 * ModelMapper
+* Spring cache
+* JDBC
 
 **DataBase schema:**
 
