@@ -19,8 +19,8 @@
 * PostgreSQL
 * Spring Security (JWT Token)
 * ModelMapper
-
-**Flow**:
+* Spring cache
+* JDBC
 
 **DataBase schema:**
 
