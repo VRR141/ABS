@@ -2,6 +2,7 @@ package group.ship.blackshipstore.controller;
 
 import group.ship.blackshipstore.dto.response.OrderResponseDto;
 import group.ship.blackshipstore.sevices.OrderService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/orders")
-@PreAuthorize("hasAnyAuthority('Капитан')")
+@PreAuthorize("hasAnyAuthority('Капитан', 'Помощник Капитана')")
+@Tag(name = "Order Controller", description = "Controller for work with orders")
 public class AdminOrderController {
     private final OrderService orderService;
 

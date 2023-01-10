@@ -51,8 +51,8 @@ public class AuthController {
     Send ur login and desired password as JSON
      */
     @PostMapping("/updatePassword")
-    @Hidden
     @PreAuthorize("hasAuthority('Капитан')")
+    @Operation(summary = "Update password", description = "Method for update ur password, require admin role")
     public ResponseEntity<String> updatePassword(@RequestBody LoginDTO loginDTO){
         if (!authenticationService.checkExist(loginDTO.getUsername())){
             return new ResponseEntity<>("Incorrect username", HttpStatus.BAD_REQUEST);
